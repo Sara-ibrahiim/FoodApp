@@ -1,3 +1,12 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Sen:wght@400..800&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Sen:wght@400..800&display=swap');
+
+
+body{
+    font-family: "Inter", sans-serif !important;
+}
 .auth-container{
     background-image:url(./assets/images/image-1.png) ;
     background-size: cover;
@@ -22,5 +31,9 @@
 .btn-success {
     background-color:  rgba(74, 163, 90, 1) !important;
     border-color:rgba(74, 163, 90, 1) !important ;
+    font-weight: 600 !important;
     
+}
+.montserrat{
+    font-family: "Montserrat", sans-serif !important;
 }
