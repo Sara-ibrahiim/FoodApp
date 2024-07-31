@@ -26,7 +26,7 @@ export default function ResetPass() {
       )
       toast.success("Password Changed")
       console.log(response)
-      navigate("/login")
+      navigate("/")
     } catch(error){
       toast.error(error.response.data.message);
       console.log(error.response.data.message)
@@ -92,7 +92,7 @@ export default function ResetPass() {
 {errors.confirmPassword && <p className='text-danger'>{errors.confirmPassword.message}</p>}
 <div className="input-group pb-3">
   <span className="input-group-text" id="basic-addon1"><i className='fa-solid fa-lock icon-color'></i></span>
-  <input type="password" className="form-control" placeholder="Confirm New confirmPassword"
+  <input type="password" className="form-control" placeholder="Confirm New Password"
    aria-label="confirmPassword" aria-describedby="basic-addon1"
    {...register('confirmPassword',{
     required:"ConfirmPassword is required",
