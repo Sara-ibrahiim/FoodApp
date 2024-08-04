@@ -3,21 +3,21 @@ import SideBar from '../SideBar/SideBar'
 import Navbar from '../Navbar/Navbar'
 import { Outlet } from 'react-router-dom'
 
-export default function MasterLayout() {
+export default function MasterLayout({loginData}) {
   return (
     <>
-    <div className="container-fluid">
-        <div className="row">
-            <div className="col-md-3 bg-info">
+  
+        <div className="d-flex">
+            <div className="">
                 <SideBar/>
             </div>
-            <div className="col-md-9 bg-danger">
-                <Navbar/>
+            <div className="w-100">
+                <Navbar loginData={loginData} />
                 <Outlet/>
 
             </div>
         </div>
-    </div>
+   
       
     </>
   )

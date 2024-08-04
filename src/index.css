@@ -6,6 +6,8 @@
 
 body{
     font-family: "Inter", sans-serif !important;
+ 
+  
 }
 .auth-container{
     background-image:url(./assets/images/image-1.png) ;
@@ -14,7 +16,7 @@ body{
 }
 .bg-overlay{
     background: linear-gradient( rgba(47, 140, 96, 0.63) , rgba(0, 0, 0, 0.6237) );
-    ;
+    
 }
 .text-logo{
     color: rgba(73, 73, 73, 0.6) !important;
@@ -37,3 +39,88 @@ body{
 .montserrat{
     font-family: "Montserrat", sans-serif !important;
 }
+.bg-sidebar , .ps-sidebar-container {
+    background-color: #1F263E !important;
+
+    
+}
+  .MenuItem{
+    height: 100% !important;
+  }
+
+
+.bg-sidebar ,.ps-menu-button:hover{
+background-color:#00924D1A !important;
+
+}
+
+.firstRow-sideBar .ps-menu-button:hover{
+    background-color: transparent !important;
+
+}
+.firstRow-sideBar{
+    margin-left: 10px !important;
+   
+}
+.bg-header{
+padding-top: 0% !important;
+
+padding-bottom: 0% !important;
+    background-image: url(../src/assets/bg-header.svg) , 
+    linear-gradient( rgba(0, 146, 71, 1) 50%, rgba(0, 146, 71, 1) 100%) !important;
+    
+}
+.title{
+    font-size: 32px !important;
+    font-weight: 700 !important;
+}
+.title2{
+    font-size: 32px !important;
+}
+/*Notfound*/
+
+  .bg-notfound{
+    background-image: url(../src/assets/images/Vectorx.png);
+    background-position: right ;
+    background-repeat: no-repeat;
+  }
+
+  .img-notfound img{
+    width: 94%;
+    margin-top: 2px;
+
+    
+  }
+
+  .btn-notFound {
+    background-color:  #009247 !important;
+height: 18%;
+  }
+  .text-left-notfound {
+    color:  #1F263E;
+    
+   
+  }
+  .points{
+    transform: translateY(-25px);
+    
+  }
+.letter-notfound{
+  transform: translateY(-25px);
+}
+  .notFound-text{
+    color: #009247 !important;
+    font-size: 28px !important;
+    line-height: 1px !important;
+  }
+  .sr_only{
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }

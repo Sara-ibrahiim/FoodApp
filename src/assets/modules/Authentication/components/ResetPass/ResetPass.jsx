@@ -1,11 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import logo from "../../../../images/logo.png"
 import { useForm } from 'react-hook-form'
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { User_URls } from '../../../../../constants/End_Points';
+import { EmailValidation, PasswordValidation } from '../../../../../constants/Validations';
 let password;
+
 export default function ResetPass() {
 
   let navigate = useNavigate();
@@ -21,7 +24,7 @@ export default function ResetPass() {
   let onSubmit = async (data)=>{
     try{
       let response = await axios.post(
-        "https://upskilling-egypt.com:3006/api/v1/Users/Reset",data
+        User_URls.reset,data
         
       )
       toast.success("Password Changed")
@@ -32,13 +35,9 @@ export default function ResetPass() {
       console.log(error.response.data.message)
     }
   };
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false)
   return <>
-  <div className="auth-container montserrat">
-    <div className="container-fluid bg-overlay">
-      <div className="row vh-100 justify-content-center align-items-center">
-        <div className="col-md-5 bg-white py-3 px-5 text-center rounded rounded-2  ">
-          <div className=''>
-            <img src={logo} alt="food-logo"  className='w-50 pt-3'/>
+
             <div className="text-start mt-3 mb-4">
               <h5 className='mb-1 header-text '>Reset Password </h5>
               <p className='text-logo'>Please Enter Your Otp or Check Your Inbox</p>
@@ -52,14 +51,7 @@ export default function ResetPass() {
   <span className="input-group-text" id="basic-addon1"><i className='fa-regular fa-envelope icon-color'></i></span>
   <input type="email" className="form-control" placeholder="Enter Your Email" aria-label="email" 
   aria-describedby="basic-addon1"
-  {...register('email',{
-    required:"Email is required",
-    pattern:{
-      value:/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-      message:"Email should be vaild mail"
-
-    },
-  })}/>
+  {...register('email',EmailValidation)}/>
 </div>
 {errors.seed && <p className='text-danger'>{errors.seed.message}</p>}
 <div className="input-group pb-3">
@@ -77,27 +69,47 @@ export default function ResetPass() {
 </div>
 {errors.password && <p className='text-danger'>{errors.password.message}</p>}
 <div className="input-group pb-3">
-  <span className="input-group-text" id="basic-addon1"><i className='fa-solid fa-lock icon-color'></i></span>
-  <input type="password" className="form-control" placeholder="Password"
+  <span className="input-group-text" id="basic-addon1">
+    <i className='fa-solid fa-lock icon-color'></i></span>
+  <input type={isPasswordVisible? "text" : "password"} className="form-control" placeholder="Password"
    aria-label="password" aria-describedby="basic-addon1"
-  {...register('password',{
-    required:"password is required",
-    pattern:{
-      value:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()\-_=+[{\]};:'",/?]).{8,}$/,
-      message:"password  should be vaild password "
-
-    },
-  })} />
+  {...register('password',PasswordValidation)} />
+   <button
+      onMouseDown={(e)=>{e.preventDefault()}}
+      onMouseUp={(e)=>{e.preventDefault()}}
+         aria-hidden="true"
+       type='button' className="input-group-text" id="basic-addon1"
+    onClick={()=>setIsPasswordVisible(prev=>!prev)}>
+        <span className='sr_only'>{isPasswordVisible? "Hide Password":"Show Password"}</span> 
+   <i className={`fa ${isPasswordVisible? "fa-eye-slash":"fa-eye"}`}></i></button>
 </div>
+
+
+
 {errors.confirmPassword && <p className='text-danger'>{errors.confirmPassword.message}</p>}
 <div className="input-group pb-3">
-  <span className="input-group-text" id="basic-addon1"><i className='fa-solid fa-lock icon-color'></i></span>
-  <input type="password" className="form-control" placeholder="Confirm New Password"
+  <span className="input-group-text" id="basic-addon1">       
+  
+      <i className='fa-solid fa-lock icon-color'></i></span>
+  <input type={isPasswordVisible? "text" : "password"} className="form-control" placeholder="Confirm New Password"
    aria-label="confirmPassword" aria-describedby="basic-addon1"
    {...register('confirmPassword',{
     required:"ConfirmPassword is required",
     validate: (value) => value === watch("password") || "Passwords do not match"
   })} />
+   <button type='button'  
+ 
+
+   
+    onMouseDown={(e)=>{e.preventDefault()}}
+   onMouseUp={(e)=>{e.preventDefault()}}
+    className="input-group-text" id="basic-addon1"
+    onClick={()=>setIsPasswordVisible(prev=>!prev)}
+    aria-hidden="true">
+      
+        <span className='sr_only'>{isPasswordVisible? "Hide Password":"Show Password"}
+        </span> 
+   <i className={`fa ${isPasswordVisible? "fa-eye-slash":"fa-eye"}`}></i></button>
 </div>
 
 
@@ -106,10 +118,6 @@ export default function ResetPass() {
 
             </form>
 
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+
     </>
 }

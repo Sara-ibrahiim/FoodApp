@@ -1,9 +1,14 @@
 import React from 'react'
-
+import Header from '../../../Shared/components/Header/Header'
+import RecipesImg from '../../../../reciptes.svg'
 export default function CategoriesList() {
   return (
     <div>
-      <p>CategoriesList</p>
-    </div>
+    <Header imgUrl={RecipesImg} 
+title={"Category"}  
+title2={"Item"}
+description={"You can now add your items that any user can order it from the Application and you can edit"}
+/>
+</div>
   )
 }
