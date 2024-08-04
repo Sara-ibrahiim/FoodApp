@@ -41,6 +41,9 @@ body{
 }
 .bg-sidebar , .ps-sidebar-container {
     background-color: #1F263E !important;
+    border-top-right-radius: 60px 60px !important;
+    border: none !important;
+    outline: none;
 
     
 }
