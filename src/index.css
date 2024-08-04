@@ -42,10 +42,13 @@ body{
 .bg-sidebar , .ps-sidebar-container {
     background-color: #1F263E !important;
     border-top-right-radius: 60px 60px !important;
-    border: none !important;
-    outline: none;
 
     
+}
+.css-1wvake5{
+  border: none !important;
+  outline: none !important;
+
 }
   .MenuItem{
     height: 100% !important;
