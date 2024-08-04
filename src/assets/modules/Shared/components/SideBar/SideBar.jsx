@@ -13,9 +13,9 @@ let togglerCollapse =() =>{
 
 return  <>
         
-<div className='bg-sidebar '>
+<div className='bg-sidebar' style={{position:'sticky',height:"100vh"}}>
 
-<Sidebar collapsed={isCollapse}>
+<Sidebar collapsed={isCollapse} className='h-100'>
   <Menu className='h-100'>
    
       <MenuItem className='text-white firstRow-sideBar py-5  ' 

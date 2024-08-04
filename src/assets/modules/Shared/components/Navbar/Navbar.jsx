@@ -2,7 +2,7 @@ import React from 'react'
 import Icon from '../../../../images/iconframe.png'
 export default function Navbar({loginData}) {
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light py3 m-3 rounded-4">
+    <nav className="navbar navbar-expand-lg navbar-light bg-light my-3  mx-4 rounded-4">
     <div className="container-fluid">
     <form class="form-inline my-2 my-lg-0 w-75 me-3">
       <input class="form-control mr-sm-2 rounded-2 text-muted" type="search" placeholder="SearchHere" aria-label="Search"/>
