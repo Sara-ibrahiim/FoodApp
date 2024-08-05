@@ -13,15 +13,15 @@ export default function ForgetPass() {
   let{
     register,
     handleSubmit,
-    formState:{errors}
-  } = useForm(); 
+    formState:{errors,isDirty, isValid}
+  } = useForm({ mode: "onChange" }); 
   let onSubmit = async (data)=>{
     try{
       let response = await axios.post(
         User_URls.resetRequest,data
         
       )
-      toast.success("OTP Sended successfully")
+      toast.success("OTP Send successfully")
       console.log(response)
       navigate("/reset-password")
     } catch(error){
@@ -52,7 +52,8 @@ export default function ForgetPass() {
 
 
 
-<button className='btn btn-success d-block w-100 my-5'>Submit</button>
+<button className='btn btn-success d-block w-100 my-5'type="submit"
+   disabled={!isDirty || !isValid}>Submit</button>
 
 
             </form>

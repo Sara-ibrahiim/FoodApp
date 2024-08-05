@@ -17,8 +17,8 @@ export default function ResetPass() {
     handleSubmit,
     watch,
     getValues,
-    formState:{errors}
-  } = useForm(); 
+    formState:{errors,isDirty, isValid}
+  } = useForm({ mode: "onChange" }); 
   
   password = watch("password", "");
   let onSubmit = async (data)=>{
@@ -113,7 +113,8 @@ export default function ResetPass() {
 </div>
 
 
-<button className='btn btn-success d-block w-100 my-2'>Reset Password</button>
+<button className='btn btn-success d-block w-100 my-2' type="submit"
+   disabled={!isDirty || !isValid}>Reset Password</button>
 
 
             </form>

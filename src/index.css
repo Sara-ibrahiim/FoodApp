@@ -9,6 +9,20 @@ body{
  
   
 }
+.bg-sidebar ,.ps-menu-button .active {
+  background-color:#00924D1A !important; /* put any color you want */
+  font-weight: 500;
+}
+
+.register_link:hover{
+color: #009247 !important;
+}
+.Forget_link:hover{
+  color: black !important;
+  }
+button:hover{
+  background-color: #199153 !important;
+}
 .auth-container{
     background-image:url(./assets/images/image-1.png) ;
     background-size: cover;

@@ -65,7 +65,7 @@ let saveLoginData = () => {
 return (
     <>
 
-<ToastContainer />
+<ToastContainer position="bottom-left"/>
 <RouterProvider router={routers}/>
     </>
 

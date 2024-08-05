@@ -6,11 +6,13 @@ export const EmailValidation ={
     
         },
 }
+const PasswordRegEx= 
+/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$ !%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
 
 export const PasswordValidation={
     required:"password is required",
     pattern:{
-      value:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()\-_=+[{\]};:'",/?]).{8,}$/,
+      value:PasswordRegEx,
       message:"password  should be valid password "
 
     },
