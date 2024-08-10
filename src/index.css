@@ -6,12 +6,14 @@
 
 body{
     font-family: "Inter", sans-serif !important;
+   color: #1F263E !important;
  
   
 }
 .bg-sidebar ,.ps-menu-button .active {
   background-color:#00924D1A !important; /* put any color you want */
   font-weight: 500;
+
 }
 
 .register_link:hover{
@@ -20,8 +22,9 @@ color: #009247 !important;
 .Forget_link:hover{
   color: black !important;
   }
-button:hover{
-  background-color: #199153 !important;
+.btn-success:hover{
+  background-color: #349261 !important;
+  cursor: pointer !important;
 }
 .auth-container{
     background-image:url(./assets/images/image-1.png) ;
@@ -143,4 +146,196 @@ height: 18%;
     clip: rect(0, 0, 0, 0);
     white-space: nowrap;
     border-width: 0;
+  }
+  /*category*/
+.title-shared{
+  transform: translateY(-13px) !important;
+  font-size: 15px;
+
+
+}
+ .btn_pages{
+    padding: 10px 55px !important;
+
+    
+  }
+/*drop down */
+  .tabledDrop .dropdown .btn{
+  background-color: transparent !important;
+border: none !important;
+color: #3A3A3D !important;
+font-weight: 700 !important;
+cursor: pointer !important;
+}
+
+
+.tabledDrop .dropdown .btn:hover{
+background-color: transparent !important;
+border: none !important;
+
+}
+.tabledDrop .dropdown-menu button:hover{
+background-color:  #F8F9FB !important;
+;
+}
+
+.icon-table{
+  color: #009247 !important;
+}
+
+
+#dropdown-basic{
+  color: #A3A9B6 !important;
+}
+.btn-outline-secondary{
+ border-color:  #E0E2E7 !important;
+
+}
+.btn-outline-secondary:hover{
+background-color:#ccd0dbd8 !important;
+color: #3A3A3D !important;
+
+  
+ }
+
+
+/*NoData*/
+.nodata_img{
+width: 45%;
+margin-top: 50px !important;
+margin-bottom: 20px !important;
+
+  }
+  .Nodata{
+    transform: translateX(200px) !important;
+  }
+  .Nodata h5{
+    color:  #494949;
+    
+  }
+  .light_gray{
+    color:  #D9D9D9 ;
+    
+  }
+
+  /*Recipe*/
+  .imgRecipe{
+    width: 40%;
+  }
+  .td_Img{
+    width: 10%;
+  }
+ 
+/*table*/
+  .table > tbody > tr:nth-child(even) > td, .table > tbody > tr:nth-child(even) > th {
+    background-color:#F8F9FB !important;
+    
+ }
+
+    table, tr, td, th {
+      border: none !important;
+  }
+
+.th-first{
+
+  border-top-left-radius: 2rem !important;
+  border-bottom-left-radius: 2rem !important;
+
+}
+.th-last{
+  border-top-right-radius: 2rem !important;
+  border-bottom-right-radius: 2rem !important;
+}
+td{
+  color: #3A3A3D !important;
+
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+}
+
+th{
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+}
+    /*Home*/
+.green{
+  color: #009247 !important;
+  
+}
+.green-bg{
+ background-color: #009247 !important;
+  
+}
+    .Home-Title{
+      background-color: #F0FFEF !important;
+    }
+
+
+    /* search */
+
+
+    .input-group ::placeholder{
+
+      color: #A3A9B6 !important;
+    }
+    .has-search .form-control {
+      padding-left: 2.375rem;
+  }
+ 
+      
+  .has-search .form-control-feedback {
+      position: absolute;
+      z-index: 2;
+      display: block;
+      width: 2.375rem;
+      height: 2.375rem;
+      line-height: 2.375rem;
+      text-align: center;
+      pointer-events: none;
+      color: #858D9D !important;
+      
+  }
+.nav-search ::placeholder{
+  color: #D9D9D9 !important;
+}
+  .nav-search .form-control {
+    padding-left: 2.375rem;
+}
+
+.nav-search .form-control-feedback {
+    position: absolute;
+    z-index: 2;
+    display: block;
+    width: 2.375rem;
+    height: 2.375rem;
+    line-height: 2.375rem;
+    text-align: center;
+    pointer-events: none;
+    color: #1F263E !important;
+}
+
+/*model*/
+.modal{
+  --bs-modal-header-border-color:'transform';
+  --bs-modal-footer-border-color: #F7F7F7;
+  --bs-modal-footer-border-width: 3px;
+
+  --bs-modal-width: 550px;
+}
+.modal-content{
+  padding: 5px 30px;
+}
+.btn-close{
+  --bs-btn-close-bg: url(./assets/images/xx.png) !important;
+  background-size: 60%;
+   --bs-btn-close-opacity:none;
+   --bs-btn-close-focus-shadow :none;
+  border:none;
+  width:2em;
+  height: 2em;
+  margin-left: auto;
+  }
+  .modal-header{
+margin-right: 0% !important;
+padding-right: 0% !important;
   }

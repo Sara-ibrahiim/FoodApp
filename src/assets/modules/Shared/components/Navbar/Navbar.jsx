@@ -4,9 +4,14 @@ export default function Navbar({loginData}) {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light my-3  mx-4 rounded-4">
     <div className="container-fluid">
-    <form class="form-inline my-2 my-lg-0 w-75 me-3">
-      <input class="form-control mr-sm-2 rounded-2 text-muted" type="search" placeholder="SearchHere" aria-label="Search"/>
-    
+    <form className="form-inline my-2 my-lg-0 w-75 me-3">
+    <div class="form-group nav-search">
+    <span class="fa fa-search form-control-feedback"></span>
+      <input className="form-control mr-sm-2 rounded-2 " 
+      type="search" placeholder="Search Here" aria-label="Search" />
+   </div>
+  
+
     </form>
       <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" 

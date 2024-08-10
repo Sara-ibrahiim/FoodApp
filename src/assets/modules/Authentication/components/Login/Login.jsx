@@ -1,49 +1,89 @@
-import React, { useState } from "react";
+import React, {useState } from "react";
 import logo from "../../../../images/logo.png";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useBlocker, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { User_URls } from "../../../../../constants/End_Points";
 import { EmailValidation } from "../../../../../constants/Validations";
-
+import { useBeforeunload } from "react-beforeunload";
+//import useCustomPrompt from "../../../Users/components/useCustomPrompt/useCustomPrompt";
+//import React, { useCallback, useRef, useState } from "react";
 export default function Login({ saveLoginData }) {
+  
+  const [value, setValue] = useState('');
+  // const data = { title: 'Are you Sure', content: 'you have unsaved data' };
+
+  // const handleOnChange = useCallback((e) => setValue(e.target.value), []);
+  //  useCustomPrompt(
+  //   {
+  //     title: 'Warning!',
+  //     content: 'You have entered data that will be lost if you exit the page',
+  //   },
+  //   !!value
+  // );
+
+  useBeforeunload((event) => {
+    event.preventDefault();
+    console.log("beforeunload happened!");
+  });
   let navigate = useNavigate();
+
+   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  //   let BlockingForm = () => {
+ 
+  //  let [isBlocking, setIsBlocking] = useState(false);
+  //   usePrompt(
+  //     "Hello from usePrompt -- Are you sure you want to leave?",
+  //     isBlocking
+  //   );
+  // }
+
+  let blocker = useBlocker(
+    ({ currentLocation, nextLocation }) =>
+      value !== "" &&
+      currentLocation.pathname !== nextLocation.pathname
+  );
+  
   let {
     register,
     handleSubmit,
-    formState: { errors, isDirty, isValid },
+    formState: { errors, isDirty, isValid ,isSubmitting },
   } = useForm({ mode: "onChange" });
   let onSubmit = async (data) => {
     try {
       let response = await axios.post(User_URls.login, data);
-      toast.success("Login successfully");
+      toast.success(response?.data?.message ||"Login successfully");
       console.log(response);
       localStorage.setItem("token", response.data.token);
       saveLoginData();
+      setIsBlocking(false);
       navigate("/dashboard");
     } catch (error) {
-      toast.error(error.response.data.message);
+      toast.error(error?.response?.data?.message);
       console.log(error.response.data.message);
     }
   };
-  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+   
+ 
+
   return (
     <>
       <div className="text-start mt-3 pb-3">
         <h5 className="mb-1 header-text ">Login</h5>
         <p className="text-logo">Welcome Back! Please enter your details </p>
       </div>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)} method="post">
         {errors.email && <p className="text-danger">{errors.email.message}</p>}
         <div className="input-group ">
           <span className="input-group-text" id="basic-addon1">
             <i className="fa-solid fa-mobile-screen icon-color"></i>
           </span>
           <input
-            type="email"
+            type="email"      
             className="form-control"
+            onChange={(e) => setValue(e.target.value)}
             placeholder="Enter Your Email"
             aria-label="email"
             aria-describedby="basic-addon1"
@@ -61,12 +101,14 @@ export default function Login({ saveLoginData }) {
             type={isPasswordVisible ? "text" : "password"}
             className="form-control"
             placeholder="Password"
+        
+            onChange={(e) => setValue(e.target.value)}
             aria-label="password"
             aria-describedby="basic-addon1"
             {...register("password", {
               required: "password is required",
               pattern: {
-                value: "",
+                value: {value},
                 message: "password should be valid password ",
               },
             })}
@@ -110,10 +152,22 @@ export default function Login({ saveLoginData }) {
         <button
           className="btn btn-success d-block w-100 mt-2 mb-5"
           type="submit"
-          disabled={!isDirty || !isValid}
+          disabled={!isDirty || !isValid || isSubmitting}
         >
           Login
         </button>
+
+        {blocker.state === "blocked" ? (
+        <div>
+          <p>Are you sure you want to leave?</p>
+          <button onClick={() => blocker.proceed()}>
+            Proceed
+          </button>
+          <button onClick={() => blocker.reset()}>
+            Cancel
+          </button>
+        </div>
+      ) : null}
       </form>
     </>
   );

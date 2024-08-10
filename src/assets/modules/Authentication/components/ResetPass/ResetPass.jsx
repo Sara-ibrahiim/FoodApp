@@ -6,18 +6,19 @@ import { Link, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { User_URls } from '../../../../../constants/End_Points';
+import { useBeforeunload } from "react-beforeunload";
 import { EmailValidation, PasswordValidation } from '../../../../../constants/Validations';
 let password;
 
 export default function ResetPass() {
-
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false)
   let navigate = useNavigate();
   let{
     register,
     handleSubmit,
     watch,
     getValues,
-    formState:{errors,isDirty, isValid}
+    formState:{errors,isDirty, isValid,isSubmitting}
   } = useForm({ mode: "onChange" }); 
   
   password = watch("password", "");
@@ -27,15 +28,19 @@ export default function ResetPass() {
         User_URls.reset,data
         
       )
-      toast.success("Password Changed")
+      toast.success(response?.data?.message ||"Password Changed")
       console.log(response)
       navigate("/")
     } catch(error){
-      toast.error(error.response.data.message);
+      toast.error(error?.response?.data.message);
       console.log(error.response.data.message)
     }
   };
-  const [isPasswordVisible, setIsPasswordVisible] = useState(false)
+
+  useBeforeunload((event) => {
+    event.preventDefault();
+    console.log("beforeunload happened!");
+  });
   return <>
 
             <div className="text-start mt-3 mb-4">
@@ -114,7 +119,7 @@ export default function ResetPass() {
 
 
 <button className='btn btn-success d-block w-100 my-2' type="submit"
-   disabled={!isDirty || !isValid}>Reset Password</button>
+   disabled={!isDirty || !isValid || isSubmitting}>Reset Password</button>
 
 
             </form>

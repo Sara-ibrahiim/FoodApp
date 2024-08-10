@@ -7,13 +7,14 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { User_URls } from '../../../../../constants/End_Points';
 import { EmailValidation } from '../../../../../constants/Validations';
+import { useBeforeunload } from 'react-beforeunload';
 
 export default function ForgetPass() {
   let navigate = useNavigate();
   let{
     register,
     handleSubmit,
-    formState:{errors,isDirty, isValid}
+    formState:{errors,isDirty, isValid,isSubmitting}
   } = useForm({ mode: "onChange" }); 
   let onSubmit = async (data)=>{
     try{
@@ -21,14 +22,19 @@ export default function ForgetPass() {
         User_URls.resetRequest,data
         
       )
-      toast.success("OTP Send successfully")
+      toast.success(response?.data?.message ||"OTP Send Successfully")
       console.log(response)
       navigate("/reset-password")
     } catch(error){
-      toast.error(error.response.data.message);
+      toast.error(error?.response?.data?.message);
       console.log(error.response.data.message)
     }
   };
+
+  useBeforeunload((event) => {
+    event.preventDefault();
+    console.log("beforeunload happened!");
+  });
   return <>
  
 
@@ -53,7 +59,7 @@ export default function ForgetPass() {
 
 
 <button className='btn btn-success d-block w-100 my-5'type="submit"
-   disabled={!isDirty || !isValid}>Submit</button>
+   disabled={!isDirty || !isValid || isSubmitting}>Submit</button>
 
 
             </form>
