@@ -12,7 +12,7 @@ import RecipesList from "./assets/modules/Recipes/components/RecipesList/Recipes
 import UsersList from "./assets/modules/Users/components/UsersList/UsersList";
 import NotFound from "./assets/modules/Shared/components/NotFound/NotFound";
 import { ToastContainer } from "react-toastify";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
 import ProtectedRoute from "./assets/modules/Shared/components/ProtectedRoute/ProtectedRoute";
 
@@ -26,6 +26,14 @@ function App() {
     setLoginData(decodedToken);
     console.log(loginData?.userName);
   };
+
+useEffect(()=>{
+  if(localStorage.getItem("token"))
+  {
+    saveLoginData()
+  }
+},[])
+
   const routers = createBrowserRouter([
     {
       path: "",

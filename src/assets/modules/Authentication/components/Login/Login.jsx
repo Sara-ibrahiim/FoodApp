@@ -1,4 +1,4 @@
-import React, {useState } from "react";
+
 import logo from "../../../../images/logo.png";
 import { useForm } from "react-hook-form";
 import axios from "axios";
@@ -8,11 +8,13 @@ import "react-toastify/dist/ReactToastify.css";
 import { User_URls } from "../../../../../constants/End_Points";
 import { EmailValidation } from "../../../../../constants/Validations";
 import { useBeforeunload } from "react-beforeunload";
+
 //import useCustomPrompt from "../../../Users/components/useCustomPrompt/useCustomPrompt";
 //import React, { useCallback, useRef, useState } from "react";
+import React, {useState } from "react";
 export default function Login({ saveLoginData }) {
-  
-  const [value, setValue] = useState('');
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  //const [value, setValue] = useState('');
   // const data = { title: 'Are you Sure', content: 'you have unsaved data' };
 
   // const handleOnChange = useCallback((e) => setValue(e.target.value), []);
@@ -23,14 +25,6 @@ export default function Login({ saveLoginData }) {
   //   },
   //   !!value
   // );
-
-  useBeforeunload((event) => {
-    event.preventDefault();
-    console.log("beforeunload happened!");
-  });
-  let navigate = useNavigate();
-
-   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   //   let BlockingForm = () => {
  
   //  let [isBlocking, setIsBlocking] = useState(false);
@@ -40,11 +34,15 @@ export default function Login({ saveLoginData }) {
   //   );
   // }
 
-  let blocker = useBlocker(
-    ({ currentLocation, nextLocation }) =>
-      value !== "" &&
-      currentLocation.pathname !== nextLocation.pathname
-  );
+  useBeforeunload((event) => {
+    event.preventDefault();
+    console.log("beforeunload happened!");
+  });
+  let navigate = useNavigate();
+
+   
+
+
   
   let {
     register,
@@ -62,7 +60,7 @@ export default function Login({ saveLoginData }) {
       navigate("/dashboard");
     } catch (error) {
       toast.error(error?.response?.data?.message);
-      console.log(error.response.data.message);
+      console.log(error?.response?.data?.message);
     }
   };
    
@@ -83,7 +81,7 @@ export default function Login({ saveLoginData }) {
           <input
             type="email"      
             className="form-control"
-            onChange={(e) => setValue(e.target.value)}
+           // onChange={handleOnChange}
             placeholder="Enter Your Email"
             aria-label="email"
             aria-describedby="basic-addon1"
@@ -102,13 +100,14 @@ export default function Login({ saveLoginData }) {
             className="form-control"
             placeholder="Password"
         
-            onChange={(e) => setValue(e.target.value)}
+            //onChange={handleOnChange}
             aria-label="password"
             aria-describedby="basic-addon1"
             {...register("password", {
               required: "password is required",
               pattern: {
-                value: {value},
+                //value: {value},
+                value: '',
                 message: "password should be valid password ",
               },
             })}
@@ -157,17 +156,7 @@ export default function Login({ saveLoginData }) {
           Login
         </button>
 
-        {blocker.state === "blocked" ? (
-        <div>
-          <p>Are you sure you want to leave?</p>
-          <button onClick={() => blocker.proceed()}>
-            Proceed
-          </button>
-          <button onClick={() => blocker.reset()}>
-            Cancel
-          </button>
-        </div>
-      ) : null}
+      
       </form>
     </>
   );

@@ -61,8 +61,8 @@ export default function RecipesList() {
 
 
   <div className="m-4 d-flex ">
-  <div class="form-group has-search col-md-6 w-75">
-    <span class="fa fa-search form-control-feedback"></span>
+  <div className="form-group has-search col-md-6 w-75">
+    <span className="fa fa-search form-control-feedback"></span>
       <div className="input-group ">
       
            <input className="form-control  " 

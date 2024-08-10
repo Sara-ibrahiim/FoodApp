@@ -27,7 +27,7 @@ export default function ForgetPass() {
       navigate("/reset-password")
     } catch(error){
       toast.error(error?.response?.data?.message);
-      console.log(error.response.data.message)
+      console.log(error?.response?.data?.message)
     }
   };
 
