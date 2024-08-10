@@ -3,7 +3,7 @@ export default function TitelsPages({ TitleHead, button }) {
 
   return (
     <div>
-      <div className=" m-4 d-flex justify-content-between align-items-center ">
+      <div className=" mx-4  d-flex justify-content-between align-items-center ">
         
         <div className="montserrat">
           <h4 className="">{TitleHead} Table Details</h4>

@@ -84,7 +84,7 @@ description={"You can now add your items that any user can order it from the App
       </Modal>
 
 
-      <div className="table-container m-4 py-2">
+      <div className="table-container mx-4 ">
         <table className="table text-center">
           <thead className="table-secondary">
             <tr>

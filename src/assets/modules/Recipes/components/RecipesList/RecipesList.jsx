@@ -60,7 +60,7 @@ export default function RecipesList() {
       <TitelsPages TitleHead={"Recipes"} button={"Recipes"} />
 
 
-  <div className="m-4 d-flex ">
+  <div className="mx-4 my-2 d-flex ">
   <div className="form-group has-search col-md-6 w-75">
     <span className="fa fa-search form-control-feedback"></span>
       <div className="input-group ">
@@ -113,7 +113,7 @@ export default function RecipesList() {
           </Button>
         </Modal.Footer>
       </Modal>
-      <div className="table-container  m-4 py-2">
+      <div className="table-container  m-4 ">
         <table className="table text-center ">
           <thead className="table-secondary mb-1">
             <tr>
