@@ -1,4 +1,4 @@
-const Base_Url = "https://upskilling-egypt.com:3006/api/v1";
+ const Base_Url = "https://upskilling-egypt.com:3006/api/v1";
 export const Base_Img_Url ="https://upskilling-egypt.com:3006/"
 
 
@@ -11,6 +11,7 @@ export const User_URls ={
     delete: (id) =>  `${Base_Users}/${id}`,
     resetRequest: `${Base_Users}/Reset/Request`,
     reset: `${Base_Users}/Reset`,
+    getList : `${Base_Users}`,  
 
 }
 
@@ -35,7 +36,7 @@ export const Recipe_URL ={
 
 const BASE_UserR=`${Base_Url}/userRecipe`
 
-export const UserRecipe_URL ={
+export const Users_URL ={
     getList : `${BASE_UserR}`,  
     delete: (id) => `${BASE_UserR}/${id}`,
 

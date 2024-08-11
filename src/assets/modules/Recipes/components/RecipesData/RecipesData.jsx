@@ -41,9 +41,9 @@ export default function RecipesData() {
   const appendToFormData = (data) => {
     const formData = new FormData();
     formData.append("name", data.name);
-    formData.append("description ", data.description);
-    formData.append("price ", data.price);
-    formData.append("tagId ", data.tagId);
+    formData.append("description", data.description);
+    formData.append("price", data.price);
+    formData.append("tagId", data.tagId);
     formData.append("categoriesIds", data.categoriesIds);
     formData.append("recipeImage", data.recipeImage[0]);
 
@@ -76,7 +76,7 @@ export default function RecipesData() {
 
       <div className=" px-4 my-5 pt-3">
         <form
-          action=""
+         
           className="w-75 m-auto"
           onSubmit={handleSubmit(onSubmit)}
         >
@@ -143,7 +143,7 @@ export default function RecipesData() {
           <textarea
             className="form-control my-3"
             placeholder="Description"
-            {...register("description ", {
+            {...register("description", {
               required: "Description  Name is required",
             })}
           ></textarea>
@@ -158,7 +158,7 @@ export default function RecipesData() {
             placeholder="Upload Image"
             aria-label="recipeImage"
             aria-describedby="basic-addon1"
-            {...register("recipeImage ", {
+            {...register("recipeImage", {
               required: "recipeImage Name is required",
             })}
           />

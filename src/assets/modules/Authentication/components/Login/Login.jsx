@@ -88,6 +88,9 @@ export default function Login({ saveLoginData }) {
             {...register("email", EmailValidation)}
           />
         </div>
+
+
+        
         {errors.password && (
           <p className="text-danger">{errors.password.message}</p>
         )}

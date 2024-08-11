@@ -4,15 +4,16 @@ import RecipesImg from '../../../../reciptes.svg'
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { toast } from 'react-toastify'
-import { Base_Img_Url, UserRecipe_URL } from '../../../../../constants/End_Points'
+import { Base_Img_Url, User_URls } from '../../../../../constants/End_Points'
 import NoData from "../../../Shared/components/NoData/NoData";
 import DeleteConfirmation from "../../../Shared/components/DeleteConfirmation/DeleteConfirmation";
 import deleteGirl from '../../../../images/girl-delete.png'
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 
+
 export default function UsersList() {
-  const [userRecipe, setUserRecipe] = useState([])
+  const [Users, setUsers] = useState([])
   const [show, setShow] = useState(false);
   const [userId, setUserId] = useState(0);
   const handleClose = () => setShow(false);
@@ -22,11 +23,11 @@ export default function UsersList() {
   };
  
 
-  let deleteUserRecipe = async ()=>{
-    try { let response = await axios.delete(UserRecipe_URL.delete(userId),
+  let deleteUsers = async ()=>{
+    try { let response = await axios.delete(User_URls.delete(userId),
       {headers:{Authorization:`Bearer ${localStorage.getItem("token")}`},}) 
       toast.success('Deleted Successfully')
-      getUserRecipe()
+      getUsers()
       handleClose()
 
     
@@ -35,20 +36,21 @@ export default function UsersList() {
       toast.error('Failed Delete')
     }
   }
-let getUserRecipe = async ()=>{
+let getUsers = async ()=>{
   try{
-    let response= await axios.get(UserRecipe_URL.getList,
+    let response= await axios.get(User_URls.getList,
       {
-        headers:{Authorization:`Bearer ${localStorage.getItem("token")}`},} )
-      setUserRecipe(response.data.data)
-      console.log(respresponse.data.dataonse)
+        headers:{Authorization:`Bearer ${localStorage.getItem("token")}`},
+      })
+      setUsers(response.data.data)
+      console.log(response.data.data)
   } catch(error){
     
   }
 }
 
 useEffect(()=>{
-  getUserRecipe()
+  getUsers()
 
 },[])
 
@@ -77,7 +79,7 @@ description={"You can now add your items that any user can order it from the App
           <DeleteConfirmation deleteItem={"Recipe"}></DeleteConfirmation>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="danger" onClick={deleteUserRecipe}>
+          <Button variant="danger" onClick={deleteUsers}>
             Delete this item
           </Button>
         </Modal.Footer>
@@ -90,23 +92,21 @@ description={"You can now add your items that any user can order it from the App
             <tr>
               <th scope="col" className="th-first py-4 ps-2 ">Name</th>
               <th scope="col"  className=" py-4 ">Image</th>
-              <th scope="col"  className=" py-4 ">Price</th>
-              <th scope="col"  className=" py-4 ">Description</th>
-              <th scope="col"  className=" py-4 ">Discount</th>
-              <th scope="col"  className=" py-4 ">Category</th>
+              <th scope="col"  className=" py-4 ">Email</th>
+              <th scope="col"  className=" py-4 ">Phone</th>
               <th scope="col" className="th-last py-4 pe-2"></th>
             </tr>
           </thead>
           <tbody className="">
-            {userRecipe.length > 0 ? (
-              userRecipe.map((userRecipe) => (
-                <tr key={userRecipe.id}>
-                  <td>{userRecipe.name}</td>
+            {Users.length > 0 ? (
+              Users.map((User) => (
+                <tr key={User.id}>
+                  <td>{User.userName}</td>
 
                   <td className="td_Img">
-                    {userRecipe.imagePath ? (
+                    {Users.imagePath ? (
                       <img
-                        src={`${Base_Img_Url}/${userRecipe.imagePath}`}
+                        src={`${Base_Img_Url}/${User.imagePath}`}
                         alt=""
                         className="imgRecipe rounded-3"
                       />
@@ -114,10 +114,9 @@ description={"You can now add your items that any user can order it from the App
                       <img src={deleteGirl} className="imgRecipe rounded-3" />
                     )}
                   </td>
-                  <td className='ps-2'>{userRecipe.price}</td>
-                  <td>{userRecipe.description}</td>
-                  <td>{userRecipe.discount}</td>
-                  <td>{userRecipe.category.name}</td>
+                  <td className='ps-2'>{User.email}</td>
+                  <td>{User.phoneNumber}</td>
+              
 
                   <td className='tabledDrop pe-2'>
                     <div className="dropdown">
@@ -145,7 +144,7 @@ description={"You can now add your items that any user can order it from the App
                           <button
                             className="dropdown-item"
                             type="button"
-                            onClick={() => handleShow(userRecipe.id)}
+                            onClick={() => handleShow(User.id)}
                           >
                             <i
                               className="fa-regular fa-trash-can  ps-1 mx-2 icon-table"
