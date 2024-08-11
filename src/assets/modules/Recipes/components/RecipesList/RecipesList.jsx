@@ -11,7 +11,11 @@ import NoData from "../../../Shared/components/NoData/NoData";
 import DeleteConfirmation from "../../../Shared/components/DeleteConfirmation/DeleteConfirmation";
 import deleteGirl from '../../../../images/girl-delete.png'
 import Dropdown from 'react-bootstrap/Dropdown';
+import { useNavigate } from "react-router-dom";
+
 export default function RecipesList() {
+  
+  let navigate = useNavigate()
   const [show, setShow] = useState(false);
   const [RecId, setRecId] = useState(0);
   const handleClose = () => setShow(false);
@@ -56,8 +60,10 @@ export default function RecipesList() {
           "You can now add your items that any user can order it from the Application and you can edit"
         }
       />
-
-      <TitelsPages TitleHead={"Recipes"} button={"Recipes"} />
+<div>
+  
+    </div>
+      <TitelsPages TitleHead={"Recipes"} button={"Recipes"} btnClick={()=> navigate("/dashboard/recipes-data")}/>
 
 
   <div className="mx-4 my-2 d-flex ">

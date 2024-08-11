@@ -15,6 +15,7 @@ import { ToastContainer } from "react-toastify";
 import { useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
 import ProtectedRoute from "./assets/modules/Shared/components/ProtectedRoute/ProtectedRoute";
+import RecipesData from "./assets/modules/Recipes/components/RecipesData/RecipesData";
 
 function App() {
   const [loginData, setLoginData] = useState(null);
@@ -61,6 +62,7 @@ useEffect(()=>{
         { path: "users", element: <UsersList /> },
         { path: "categoriesList", element: <CategoriesList /> },
         { path: "recipesList", element: <RecipesList /> },
+        { path: "recipes-data", element: <RecipesData /> },
       ],
     },
   ]);

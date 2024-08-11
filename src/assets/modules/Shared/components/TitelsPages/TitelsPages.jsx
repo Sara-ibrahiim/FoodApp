@@ -1,5 +1,5 @@
-import { useNavigate } from "react-router-dom";
-export default function TitelsPages({ TitleHead, button }) {
+
+export default function TitelsPages({ TitleHead, button ,btnClick}) {
 
   return (
     <div>
@@ -11,7 +11,7 @@ export default function TitelsPages({ TitleHead, button }) {
           
         </div>
 
-        <button  className="btn btn_pages btn-success green-bg">Add New {button}</button>
+        <button  className="btn btn_pages btn-success green-bg" onClick={btnClick}>Add New {button}</button>
       </div>
     </div>
   );

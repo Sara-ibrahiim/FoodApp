@@ -9,12 +9,22 @@ import DeleteConfirmation from "../../../Shared/components/DeleteConfirmation/De
 import { toast } from "react-toastify";
 import NoData from "../../../Shared/components/NoData/NoData";
 import TitelsPages from "../../../Shared/components/TitelsPages/TitelsPages";
-
+import { useForm } from "react-hook-form";
+ 
 export default function CategoriesList() {
+  let {register , handleSubmit,formState:{errors} ,
+  reset, isSubmitted
+ }=useForm ()
+
   const [categoriesList, setCategoriesList] = useState([]);
   const [show, setShow] = useState(false);
   const [catId, setCatId] = useState(0);
+  const [showAdd, setShowAdd] = useState(false);
   const handleClose = () => setShow(false);
+  const handleAddClose= () => setShowAdd(false);
+  const handleAddShow= () => setShowAdd(true);
+
+
   const handleShow = (id) => {
     setCatId(id);
     setShow(true);
@@ -43,9 +53,33 @@ export default function CategoriesList() {
     }
   };
 
+  let addCategory = async (data) =>{
+    try {
+      let response = await axios.post(CATEGORIES_URL.create,data, {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      });
+  
+     
+      toast.success("Add Successfully");
+      getCategoriesList();
+      handleAddClose();
+      console.log(response.data.data);
+    } catch (error) {
+    //   toast.error('Failed Add')
+     }
+  }
+
   useEffect(() => {
+
     getCategoriesList();
+
+ 
   }, []);
+
+
+
+
+
   return (
     <div className="category">
       <Header
@@ -57,7 +91,8 @@ export default function CategoriesList() {
         }
       />
 
-      <TitelsPages TitleHead={"Category"} button={"Category"} />
+      <TitelsPages TitleHead={"Category"} button={"Category"}  btnClick={handleAddShow}/>
+
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton></Modal.Header>
         <Modal.Body className=" mx-3">
@@ -69,6 +104,42 @@ export default function CategoriesList() {
           </Button>
         </Modal.Footer>
       </Modal>
+
+ {/* Category add model */}
+      <Modal show={showAdd} onHide={handleAddClose}>
+      <div className="d-flex justify-content-between">
+      <Modal.Header ><h5 className="mt-1">Add Category</h5></Modal.Header>
+      <Modal.Header closeButton></Modal.Header>
+      </div>
+     
+      
+ 
+       <form onSubmit={handleSubmit(addCategory) }className="mt-5 p-t3">
+       <Modal.Body className=" mx-3">
+       <input type="text" className="form-control" placeholder="Category Name"
+   aria-label="name" aria-describedby="basic-addon1"
+  {...register('name',{
+    required:"Category Name is required",
+
+  })} />
+  {errors.name && <p className='text-danger my-3'>{errors.name.message}</p>}
+     
+       
+        </Modal.Body>
+
+        <Modal.Footer>
+        <Button variant="success" type="submit" 
+           disabled={ isSubmitted}
+          onClick={addCategory}>
+           Save
+          </Button>
+        </Modal.Footer>
+        </form>
+      
+      </Modal>
+
+
+
       <div className="table-container m-4 py-2 ">
         <table className="table">
           <thead className=" table-secondary ps-3 ">

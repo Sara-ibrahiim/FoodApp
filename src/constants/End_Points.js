@@ -20,7 +20,7 @@ const BASE_CATEGORY=`${Base_Url}/Category`
 export const CATEGORIES_URL ={
     getList : `${BASE_CATEGORY}`,  
     delete: (id) =>  `${BASE_CATEGORY}/${id}`,
-
+    create : `${BASE_CATEGORY}`, 
 }
 //Recipe url
 const BASE_Recipe=`${Base_Url}/Recipe`
@@ -28,7 +28,7 @@ const BASE_Recipe=`${Base_Url}/Recipe`
 export const Recipe_URL ={
     getList : `${BASE_Recipe}`,  
     delete: (id) =>  `${BASE_Recipe}/${id}`,
-
+    create : `${BASE_Recipe}`, 
 }
 
 //url userRecipe
@@ -40,3 +40,4 @@ export const UserRecipe_URL ={
     delete: (id) => `${BASE_UserR}/${id}`,
 
 }
+export const GetAllTags = `${Base_Url}/tag`
