@@ -16,6 +16,7 @@ import { useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
 import ProtectedRoute from "./assets/modules/Shared/components/ProtectedRoute/ProtectedRoute";
 import RecipesData from "./assets/modules/Recipes/components/RecipesData/RecipesData";
+import VerifyAccount from "./assets/modules/Authentication/components/VerifyAccount/VerifyAccount";
 
 function App() {
   const [loginData, setLoginData] = useState(null);
@@ -46,6 +47,7 @@ useEffect(()=>{
         { path: "register", element: <Register /> },
         { path: "forget-password", element: <ForgetPass /> }, 
         { path: "reset-password", element: <ResetPass /> },
+        { path: "verify-account", element: <VerifyAccount /> },
       ],
     },
     {

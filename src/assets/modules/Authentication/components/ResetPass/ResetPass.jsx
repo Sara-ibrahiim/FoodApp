@@ -8,16 +8,16 @@ import 'react-toastify/dist/ReactToastify.css';
 import { User_URls } from '../../../../../constants/End_Points';
 import { useBeforeunload } from "react-beforeunload";
 import { EmailValidation, PasswordValidation } from '../../../../../constants/Validations';
-let password;
+
 
 export default function ResetPass() {
+  let password;
   const [isPasswordVisible, setIsPasswordVisible] = useState(false)
   let navigate = useNavigate();
   let{
     register,
     handleSubmit,
     watch,
-    getValues,
     formState:{errors,isDirty, isValid,isSubmitting}
   } = useForm({ mode: "onChange" }); 
   

@@ -18,6 +18,7 @@
     "axios": "^1.7.2",
     "bootstrap": "^5.3.3",
     "jwt-decode": "^4.0.0",
+    "mui-file-dropzone": "^4.0.2",
     "react": "^18.3.1",
     "react-beforeunload": "^2.6.0",
     "react-bootstrap": "^2.10.4",

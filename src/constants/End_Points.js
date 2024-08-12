@@ -12,7 +12,7 @@ export const User_URls ={
     resetRequest: `${Base_Users}/Reset/Request`,
     reset: `${Base_Users}/Reset`,
     getList : `${Base_Users}`,  
-
+    verify : `${Base_Users}/verify`,
 }
 
 //Categories Url

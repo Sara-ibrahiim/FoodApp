@@ -117,8 +117,7 @@ description={"You can now add your items that any user can order it from the App
                   <td className='ps-2'>{User.email}</td>
                   <td>{User.phoneNumber}</td>
               
-
-                  <td className='tabledDrop pe-2'>
+{User.group.name =="SystemUser" ? (<td className='tabledDrop pe-2'>
                     <div className="dropdown">
                       <button
                         className="btn  "
@@ -155,7 +154,8 @@ description={"You can now add your items that any user can order it from the App
                         </li>
                       </ul>
                     </div>
-                  </td>
+                  </td>) :("") } 
+                 
                 </tr>
               ))
             ) : (

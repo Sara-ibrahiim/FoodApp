@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import RecipesFile from "../../../Shared/components/RecipesFile/RecipesFile";
+import { DropzoneArea } from "mui-file-dropzone";
 import axios from "axios";
 import {
   CATEGORIES_URL,
   GetAllTags,
   Recipe_URL,
 } from "../../../../../constants/End_Points";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
@@ -17,6 +18,7 @@ export default function RecipesData() {
   let {
     register,
     handleSubmit,
+    control,
     formState: { errors },
   } = useForm();
   let getCategoriesList = async () => {
@@ -152,7 +154,7 @@ export default function RecipesData() {
             <p className="text-danger my-3">{errors.description.message}</p>
           )}
 
-          <input
+          {/* <input
             type="file"
             className="form-control my-2"
             placeholder="Upload Image"
@@ -164,7 +166,25 @@ export default function RecipesData() {
           />
           {errors.recipeImage && (
             <p className="text-danger my-3">{errors.recipeImage.message}</p>
-          )}
+          )} */}
+
+          
+          <Controller
+                name="recipeImage"
+                rules={{ required: 'recipe Image is required'}}
+                control={control}
+                render={({ field }) => (
+                    <DropzoneArea
+                        acceptedFiles={['image/*']}
+                        dropzoneText="Drag & Drop or Choose an Item Image to Upload"
+                        filesLimit={1}
+                        onChange={(files) => {
+                            // console.log('Files:', files);
+                            field.onChange(files);
+                        }}
+                    />
+                )}
+        /> 
 
           <div className="d-flex justify-content-end my-3">
             <button className="btn btn-outline-success mx-3 py-2 px-4 ">
