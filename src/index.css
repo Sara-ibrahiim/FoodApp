@@ -22,7 +22,10 @@ color: #009247 !important;
 .Forget_link:hover{
   color: black !important;
   }
-.btn-success:hover , .btn-outline-success{
+  .btn-outline-success:hover{
+    background-color: #009247 !important;
+  }
+.btn-success:hover {
   background-color: #349261 !important;
   cursor: pointer !important;
 }

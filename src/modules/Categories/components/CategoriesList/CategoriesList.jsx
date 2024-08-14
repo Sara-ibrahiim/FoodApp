@@ -149,7 +149,7 @@ const getNameValue = (input) =>{
         </Modal.Body>
 
         <Modal.Footer className="mt-5">
-        <Button variant="success" type="submit" 
+        <Button className="green-bg" variant="success" type="submit" 
            disabled={ isSubmitted}
           onClick={addCategory}>
            Save
