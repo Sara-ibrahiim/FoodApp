@@ -79,7 +79,7 @@ export default function RecipesData() {
 
   return (
     <div>
-      <RecipesFile />
+      <RecipesFile title={"All"}/>
 
       <div className=" px-4 my-5 pt-3">
         <form
@@ -202,7 +202,7 @@ export default function RecipesData() {
             <button className="btn btn-outline-success mx-3 py-2 px-4 ">
               Cancel
             </button>
-            <button className="btn btn-success px-3  " type="submit">
+            <button className="btn btn-success px-3 green-bg  " type="submit">
               Save
             </button>
           </div>

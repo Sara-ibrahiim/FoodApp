@@ -1,7 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
 
-export default function RecipesFile() {
+export default function RecipesFile({title}) {
     let navigate= useNavigate();
   return (
     <div>
@@ -13,7 +13,7 @@ export default function RecipesFile() {
       </div>
 
       <button onClick={()=>navigate('/dashboard/recipesList')} 
-      className='btn btn-success green-bg py-2  px-5'>Fill Recipes
+      className='btn btn-success green-bg pt-2 btn-home  px-5'>{title} Recipes
         <i className="fa-solid fa-arrow-right ps-3 mt-2"></i> </button>
 
      </div>

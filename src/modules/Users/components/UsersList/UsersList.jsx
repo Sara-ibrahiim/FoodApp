@@ -91,7 +91,7 @@ description={"You can now add your items that any user can order it from the App
           <DeleteConfirmation deleteItem={"Recipe"}></DeleteConfirmation>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="" onClick={deleteUsers}>
+          <Button variant="outline-danger" onClick={deleteUsers}>
             Delete this item
           </Button>
         </Modal.Footer>

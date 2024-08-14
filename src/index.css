@@ -22,7 +22,7 @@ color: #009247 !important;
 .Forget_link:hover{
   color: black !important;
   }
-.btn-success:hover{
+.btn-success:hover , .btn-outline-success{
   background-color: #349261 !important;
   cursor: pointer !important;
 }
@@ -382,4 +382,7 @@ color: #8391A1 !important ;
 }
 .pagination{
   flex-wrap: wrap !important;
+}
+.btn-home{
+  padding-bottom: 12px !important;
 }

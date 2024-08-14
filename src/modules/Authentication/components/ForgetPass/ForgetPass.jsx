@@ -49,7 +49,7 @@ export default function ForgetPass() {
             <form onSubmit={handleSubmit(onSubmit)}>
               {errors.email && <p className='text-danger'>{errors.email.message}</p>}
             <div className="input-group pb-4">
-  <span className="input-group-text" id="basic-addon1"><i className='fa-solid fa-mobile-screen icon-color'></i></span>
+  <span className="input-group-text" id="basic-addon1"><i className='fa-regular fa-envelope icon-color'></i></span>
   <input type="email" className="form-control" placeholder="Enter Your Email" aria-label="email" 
   aria-describedby="basic-addon1"
   {...register('email',EmailValidation)}/>
