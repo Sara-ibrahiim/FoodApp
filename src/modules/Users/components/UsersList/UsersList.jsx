@@ -233,10 +233,10 @@ description={"You can now add your items that any user can order it from the App
       </div>
 
 
-<div className='my-2 mx-4 col-md-8 '>
+<div className='my-2 mx-4 col-md-11 '>
 
-
- <ul className="pagination my-2 w-75 justify-content-end  ">
+``
+ <ul className="pagination my-2   " >
     <li className="page-item">
       <a className="page-link" href="#" aria-label="Previous">
         <span aria-hidden="true">&laquo;</span>

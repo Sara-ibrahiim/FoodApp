@@ -380,3 +380,6 @@ color: #8391A1 !important ;
 .css-16d95v9 >.ps-menu-button.active {
   border-left: 5px solid #009247 !important;
 }
+.pagination{
+  flex-wrap: wrap !important;
+}
