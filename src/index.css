@@ -385,7 +385,27 @@ color: #8391A1 !important ;
 }
 .pagination{
   flex-wrap: wrap !important;
+  z-index: 1px !important;
 }
 .btn-home{
   padding-bottom: 12px !important;
+}
+@media screen and (max-width:600px){
+
+  .select-recipes{
+   margin-top: 5px !important;
+   margin-bottom: 5px !important;
+  }
+}@media screen and (min-width:610px) and (max-width:768px){
+  .select-recipes{
+    margin-top: 5px !important;
+    margin-bottom: 5px !important;
+   }
+
+}@media screen and (min-width:769px) and (max-width:992px){
+  .select-recipes{
+    margin-top: 5px !important;
+    margin-bottom: 5px !important;
+   }
+
 }

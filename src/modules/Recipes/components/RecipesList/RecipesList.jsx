@@ -108,7 +108,7 @@ export default function RecipesList() {
 
 
   <div className="mx-4 row">
-  <div className="form-group has-search col-md-7 me-0 pe-0">
+  <div className="form-group has-search col-md-7 pe-1">
   <span className="fa fa-search form-control-feedback"></span>
       <div className="input-group ">
       
@@ -120,7 +120,7 @@ export default function RecipesList() {
        </div>
 
 
-    <div className="col-md-2 ">
+    <div className="col-md-2 select-recipes">
     <select
     onChange={getTagValue}
             placeholder="Tag"
