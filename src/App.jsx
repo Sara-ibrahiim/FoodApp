@@ -1,40 +1,25 @@
 import "./App.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import AuthLayout from "./assets/modules/Shared/components/AuthLayout/AuthLayout";
-import Login from "./assets/modules/Authentication/components/Login/Login";
-import Register from "./assets/modules/Authentication/components/Register/Register";
-import ResetPass from "./assets/modules/Authentication/components/ResetPass/ResetPass";
-import ForgetPass from "./assets/modules/Authentication/components/ForgetPass/ForgetPass";
-import MasterLayout from "./assets/modules/Shared/components/MasterLayout/MasterLayout";
-import Home from "./assets/modules/Home/components/Home/Home";
-import CategoriesList from "./assets/modules/Categories/components/CategoriesList/CategoriesList";
-import RecipesList from "./assets/modules/Recipes/components/RecipesList/RecipesList";
-import UsersList from "./assets/modules/Users/components/UsersList/UsersList";
-import NotFound from "./assets/modules/Shared/components/NotFound/NotFound";
+import AuthLayout from "./modules/Shared/components/AuthLayout/AuthLayout";
+import Login from "./modules/Authentication/components/Login/Login";
+import Register from "./modules/Authentication/components/Register/Register";
+import ResetPass from "./modules/Authentication/components/ResetPass/ResetPass";
+import ForgetPass from "./modules/Authentication/components/ForgetPass/ForgetPass";
+import MasterLayout from "./modules/Shared/components/MasterLayout/MasterLayout";
+import Home from "./modules/Home/components/Home/Home";
+import CategoriesList from "./modules/Categories/components/CategoriesList/CategoriesList";
+import RecipesList from "./modules/Recipes/components/RecipesList/RecipesList";
+import UsersList from "./modules/Users/components/UsersList/UsersList";
+import NotFound from "./modules/Shared/components/NotFound/NotFound";
 import { ToastContainer } from "react-toastify";
 import { useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
-import ProtectedRoute from "./assets/modules/Shared/components/ProtectedRoute/ProtectedRoute";
-import RecipesData from "./assets/modules/Recipes/components/RecipesData/RecipesData";
-import VerifyAccount from "./assets/modules/Authentication/components/VerifyAccount/VerifyAccount";
+import ProtectedRoute from "./modules/Shared/components/ProtectedRoute/ProtectedRoute";
+import RecipesData from "./modules/Recipes/components/RecipesData/RecipesData";
+import VerifyAccount from "./modules/Authentication/components/VerifyAccount/VerifyAccount";
 
 function App() {
-  const [loginData, setLoginData] = useState(null);
 
-  let saveLoginData = () => {
-    let encodedToken = localStorage.getItem("token");
-    let decodedToken = jwtDecode(encodedToken);
-    console.log(decodedToken);
-    setLoginData(decodedToken);
-    console.log(loginData?.userName);
-  };
-
-useEffect(()=>{
-  if(localStorage.getItem("token"))
-  {
-    saveLoginData()
-  }
-},[])
 
   const routers = createBrowserRouter([
     {
@@ -42,8 +27,8 @@ useEffect(()=>{
       element: <AuthLayout />,
       errorElement: <NotFound />,
       children: [
-        { index: true, element: <Login saveLoginData={saveLoginData} /> },
-        { path: "login", element: <Login saveLoginData={saveLoginData} /> },
+        { index: true, element: <Login/> },
+        { path: "login", element: <Login/> },
         { path: "register", element: <Register /> },
         { path: "forget-password", element: <ForgetPass /> }, 
         { path: "reset-password", element: <ResetPass /> },
@@ -54,7 +39,7 @@ useEffect(()=>{
       path: "dashboard",
       element: (
         <ProtectedRoute>
-          <MasterLayout loginData={loginData} />
+          <MasterLayout/>
         </ProtectedRoute>
       ),
       errorElement: <NotFound />,
