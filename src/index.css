@@ -390,6 +390,11 @@ color: #8391A1 !important ;
 .btn-home{
   padding-bottom: 12px !important;
 }
+select:focus > option:checked,
+select > option:hover,.bg-option:hover{
+  background-color: #009247 !important;
+  color: white !important;
+}
 @media screen and (max-width:600px){
 
   .select-recipes{

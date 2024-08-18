@@ -1,7 +1,7 @@
 
 import Header from '../../../Shared/components/Header/Header'
 import RecipesImg from '../../../../assets/reciptes.svg'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 import { Base_Img_Url, User_URls } from '../../../../constants/End_Points'
@@ -10,9 +10,12 @@ import DeleteConfirmation from "../../../Shared/components/DeleteConfirmation/De
 import deleteGirl from '../../../../assets/images/girl-delete.png'
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-
+import { useNavigate } from 'react-router-dom'
+import { AuthContext } from '../../../../context/AuthContext'
 
 export default function UsersList() {
+  let { loginData } = useContext(AuthContext);
+  let navigate = useNavigate()
   const [Users, setUsers] = useState([])
   const [show, setShow] = useState(false);
   const [userId, setUserId] = useState(0);
@@ -62,7 +65,13 @@ const getGroupValue = (input) =>{
   getRecipeList(7,1,nameValue,input.target.value,groupValue);
 }
 useEffect(()=>{
+  if (loginData?.userGroup != "SuperAdmin") {
+      
+    navigate("/NotFound")
+  }
+
   getUsers(10,1,"",1)
+
 
 },[])
 
@@ -133,7 +142,7 @@ description={"You can now add your items that any user can order it from the App
             // })}
           >
                  
-            <option value='' disabled>Role</option>
+            <option value='' >Role</option>
             <option  value='1' >Admin</option>
             <option  value='2' >User</option>
     

@@ -1,18 +1,20 @@
 import Header from "../../../Shared/components/Header/Header";
 import RecipesImg from "../../../../assets/reciptes.svg";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import TitelsPages from "../../../Shared/components/TitelsPages/TitelsPages";
 import { toast } from "react-toastify";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { Base_Img_Url, CATEGORIES_URL, GetAllTags, Recipe_URL } from "../../../../constants/End_Points";
+import { Base_Img_Url, CATEGORIES_URL, GetAllTags, Recipe_URL, UserRecipe_URL } from "../../../../constants/End_Points";
 import NoData from "../../../Shared/components/NoData/NoData";
 import DeleteConfirmation from "../../../Shared/components/DeleteConfirmation/DeleteConfirmation";
 import deleteGirl from '../../../../assets/images/girl-delete.png'
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from '../../../../context/AuthContext'
+
 export default function RecipesList() {
-  
+  let { loginData } = useContext(AuthContext);
   let navigate = useNavigate()
   const [show, setShow] = useState(false);
   const [RecId, setRecId] = useState(0);
@@ -86,11 +88,28 @@ export default function RecipesList() {
     setCatValue(input.target.value);
     getRecipeList(7,1,nameValue,input.target.value,tagValue);
   }
+  let addToFav = async (id) => {
+    try {
+      let response = await axios.post(UserRecipe_URL.addToFav,
+        {recipeId:  id},{
+          headers: {Authorization: `Bearer ${localStorage.getItem("token")}` },
+      })
+      toast.success(" Successfully Added To Favourites ")
+      console.log(response)
+      //setFavList(response.data.data)
+  } catch (error) {
+      console.log(response)
+      toast.error("Failed Added To Favourites")
+  }
+
+  }
   useEffect(() => {
     getRecipeList(7,1,'');
     getAllTags();
     getCategoriesList();
   }, []);
+
+
   return (
     <div>
       <Header
@@ -129,7 +148,7 @@ export default function RecipesList() {
             //   required: "Tag is required",
             // })}
           >
-           <option value="" className="text-muted" disabled>Tag</option>
+           <option value="" className="text-muted">Tag</option>
             {tagList.map((tag) => (
               <option key={tag.id} value={tag.id}>
                 {tag.name}
@@ -154,9 +173,10 @@ export default function RecipesList() {
             //   required: "Category is required",
             // })}
           >
-            <option value="" className="text-muted" disabled>Category</option>
+        
+            <option value="" className="text-muted bg-option">Category</option>
             {categoriesList.map((category) => (
-              <option key={category.id} value={category.id}>
+              <option key={category.id} value={category.id} className="bg-option">
                 {category.name}
               </option>
             ))}
@@ -214,7 +234,7 @@ export default function RecipesList() {
                   <td>{Recipe.description}</td>
                   <td>{Recipe.tag.id}</td>
                   <td>{Recipe.category.name}</td>
-
+                  {loginData?.userGroup == "SuperAdmin" ? 
                   <td className="pe-2 tabledDrop">
                     <div className="dropdown">
                       <button
@@ -237,10 +257,13 @@ export default function RecipesList() {
                           </button>
                         </li>
                         <li>
+                          
+                        <Link className="text-decoration-none" to={`/dashboard/recipes-Edit/${Recipe.id}`} state={{recipeData: Recipe,type: 'edit'}}>
                           <button className="dropdown-item" type="button">
                             <i className="fa-regular fa-pen-to-square icon-table ps-1 mx-2"></i>{" "}
                             Edit
                           </button>
+                        </Link>
                         </li>
                         <li>
                           <button
@@ -258,6 +281,11 @@ export default function RecipesList() {
                       </ul>
                     </div>
                   </td>
+  :(<td className="pe-4">
+
+<i onClick={()=>addToFav(Recipe.id)} class="fa-regular fa-heart text-success mt-1"></i>
+  </td>)}
+
                 </tr>
               ))
             ) : (
@@ -266,7 +294,7 @@ export default function RecipesList() {
           </tbody>
         </table>
 
-        <ul className="pagination my-2">
+        <ul className="pagination my-2 justify-content-end">
     <li className="page-item">
       <a className="page-link" href="#" aria-label="Previous">
         <span aria-hidden="true">&laquo;</span>

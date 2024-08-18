@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Header from "../../../Shared/components/Header/Header";
 import RecipesImg from "../../../../assets/reciptes.svg";
 import axios from "axios";
@@ -11,25 +11,36 @@ import TitelsPages from "../../../Shared/components/TitelsPages/TitelsPages";
 import { useForm } from "react-hook-form";
 import { CATEGORIES_URL } from "../../../../constants/End_Points";
 //import deleteGirl from '../../../../assets/images/girl-delete.png'
+import { AuthContext } from '../../../../context/AuthContext'
+import { useNavigate } from "react-router-dom";
 export default function CategoriesList() {
-  let {register , handleSubmit,formState:{errors} ,
-  reset, isSubmitted
- }=useForm ()
+  let { loginData } = useContext(AuthContext);
 
+ let navigate = useNavigate()
   const [categoriesList, setCategoriesList] = useState([]);
   const [show, setShow] = useState(false);
-  const [catId, setCatId] = useState(0);
+  const handleClose = () => setShow(false); // model delete
+  const [catId, setCatId] = useState(0); //add
   const [arrayOffPages, setArrayOffPages] = useState([])
   const [showAdd, setShowAdd] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleAddClose= () => setShowAdd(false);
   const handleAddShow= () => setShowAdd(true);
+  const handleAddClose= () => setShowAdd(false);
+  const [showUpdate, setShowUpdate] = useState(false);//update  
+  const handleCloseUpdate = () => setShowUpdate(false);
   const [nameValue, setNameValue] = useState("")
-
+  let {register,setValue , handleSubmit,formState:{errors} ,
+  reset, isSubmitted
+ }=useForm ()
   const handleShow = (id) => {
     setCatId(id);
     setShow(true);
+  }; 
+  const updateShow = (category) => {
+    setValue("name",category.name)
+    setCatId(category.id);
+    setShowUpdate(true);
   };
+
   let deleteCategory = async () => {
     try {
       let response = await axios.delete(CATEGORIES_URL.delete(catId), {
@@ -76,10 +87,30 @@ const getNameValue = (input) =>{
   setNameValue(input.target.value);
   getCategoriesList(7,1,input.target.value);
 }
+
+let updateCategory = async (data) => {
+  try {
+    let response = await axios.put(CATEGORIES_URL.update(catId),data, {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    });
+    toast.success(response?.data?.message ||"Update Successfully");
+    getCategoriesList();
+    handleCloseUpdate();
+  } catch (error) {
+    toast.error(error.response?.data?.message || 'Failed Update')
+  }
+};
+
   useEffect(() => {
+     if (loginData?.userGroup != "SuperAdmin") {
+      
+      navigate("/NotFound")
+     }
+
 
     getCategoriesList(7,1,"");
 
+    
  
   }, []);
 
@@ -127,6 +158,8 @@ const getNameValue = (input) =>{
       </Modal>
 
  {/* Category add model */}
+
+
       <Modal show={showAdd} onHide={handleAddClose}>
       <div className="d-flex justify-content-between">
       <Modal.Header ><h5 className="mt-1">Add Category</h5></Modal.Header>
@@ -158,6 +191,43 @@ const getNameValue = (input) =>{
         </form>
       
       </Modal>
+
+
+{/* update Category */}
+
+      <Modal show={showUpdate} onHide={handleCloseUpdate}>
+      <div className="d-flex justify-content-between">
+      <Modal.Header ><h5 className="mt-1">Update Category</h5></Modal.Header>
+      <Modal.Header closeButton></Modal.Header>
+      </div>
+     
+      
+ 
+       <form onSubmit={handleSubmit(updateCategory) }className="mt-5 p-t3">
+       <Modal.Body className=" mx-3">
+       <input type="text" className="form-control" placeholder="Category Name"
+   aria-label="name" aria-describedby="basic-addon1"
+  {...register('name',{
+    required:"Category Name is required",
+
+  })} />
+  {errors.name && <p className='text-danger my-3'>{errors.name.message}</p>}
+     
+       
+        </Modal.Body>
+
+        <Modal.Footer className="mt-5">
+        <Button className="green-bg" variant="success" type="submit" 
+           disabled={isSubmitted}
+           //onClick={updateCategory}
+           >
+          Update
+          </Button>
+        </Modal.Footer>
+        </form>
+      
+      </Modal>
+
 
 
 
@@ -206,10 +276,11 @@ const getNameValue = (input) =>{
                           </button>
                         </li>
                         <li>
-                          <button className="dropdown-item" type="button">
-                            <i className="fa-regular fa-pen-to-square icon-table ps-1 mx-2"></i>{" "}
+                          <button className="dropdown-item" type="button" onClick={()=>updateShow(category)} >
+                            <i  className="fa-regular fa-pen-to-square icon-table ps-1 mx-2"></i>{" "}
                             Edit
                           </button>
+                          
                         </li>
                         <li>
                           <button

@@ -22,6 +22,7 @@ export const CATEGORIES_URL ={
     getList : `${BASE_CATEGORY}`,  
     delete: (id) =>  `${BASE_CATEGORY}/${id}`,
     create : `${BASE_CATEGORY}`, 
+    update: (id) =>  `${BASE_CATEGORY}/${id}`,
 }
 //Recipe url
 const BASE_Recipe=`${Base_Url}/Recipe`
@@ -30,15 +31,20 @@ export const Recipe_URL ={
     getList : `${BASE_Recipe}`,  
     delete: (id) =>  `${BASE_Recipe}/${id}`,
     create : `${BASE_Recipe}`, 
+    update: (id) => `${BASE_Recipe}/${id}`,
 }
 
 //url userRecipe
 
-const BASE_UserR=`${Base_Url}/userRecipe`
+const BASE_UserRecipe=`${Base_Url}/userRecipe`
 
-export const Users_URL ={
-    getList : `${BASE_UserR}`,  
-    delete: (id) => `${BASE_UserR}/${id}`,
+export const UserRecipe_URL ={
+    getList : `${BASE_UserRecipe}`,  
+    removeFav: (id) => `${BASE_UserRecipe}/${id}`,
+    addToFav : `${BASE_UserRecipe}`, 
 
 }
+
+
+
 export const GetAllTags = `${Base_Url}/tag`

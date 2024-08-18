@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import RecipesFile from "../../../Shared/components/RecipesFile/RecipesFile";
 import { DropzoneArea } from "mui-file-dropzone";
 import axios from "axios";
@@ -8,12 +8,17 @@ import {
   Recipe_URL,
   
 } from "../../../../constants/End_Points";
-
+import { AuthContext } from '../../../../context/AuthContext'
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
-
+import { useLocation, useNavigate } from "react-router-dom";
 export default function RecipesData() {
+ const [tagId, setTagId] = useState('')
+ const [categoryId, setCategoryId] = useState([])
+  let { loginData } = useContext(AuthContext);
+  const location= useLocation();
+  const status = location.state?.type === "edit";
+  const recipeData = location.state?.recipeData;
   let navigate = useNavigate();
   const [tagList, setTagList] = useState([]);
   const [categoriesList, setCategoriesList] = useState([]);
@@ -54,17 +59,27 @@ export default function RecipesData() {
 
     return formData;
   };
+
+
   let onSubmit = async (data) => {
     console.log(data);
-
     let recipeData = appendToFormData(data);
 
     try {
-      let response = await axios.post(Recipe_URL.create, recipeData,
-         { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-      });
+      let response = await axios({
+        method: status ? 'put':'post',
+        url: status ? `https://upskilling-egypt.com:3006/api/v1/Recipe/${recipeData.id}` : 
+        Recipe_URL.create,
+         //Recipe_URL.update(),
+        //`https://upskilling-egypt.com:3006/api/v1/Recipe`
+        data:recipeData,
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      })
+      // .post(Recipe_URL.create, recipeData,
+      //    { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      // });
       console.log(response);
-      reset()
+      
       navigate("/dashboard/recipesList");
       toast.success(response?.data?.message);
      
@@ -73,8 +88,18 @@ export default function RecipesData() {
   };
 
   useEffect(() => {
+    if (loginData?.userGroup != "SuperAdmin") {
+      
+      navigate("/NotFound")
+    }
+
     getAllTags();
     getCategoriesList();
+
+ if(status && recipeData){
+setTagId(recipeData.tag.id)
+setCategoryId(recipeData.category[0]?.id)
+ }
   }, []);
 
   return (
@@ -96,6 +121,7 @@ export default function RecipesData() {
             {...register("name", {
               required: "Recipe Name is required",
             })}
+            defaultValue={status?recipeData.name:""}
           />
           {errors.name && (
             <p className="text-danger my-3">{errors.name.message}</p>
@@ -108,12 +134,16 @@ export default function RecipesData() {
             {...register("tagId", {
               required: "Tag is required",
             })}
+            value={tagId}
+            onChange={(e)=>setTagId(e.target.value)}
           >
+            <option value="">Tag</option>
             {tagList.map((tag) => (
               <option key={tag.id} value={tag.id}>
                 {tag.name}
               </option>
             ))}
+         
           </select>
           {errors.tagId && (
             <p className="text-danger my-3">{errors.tagId.message}</p>
@@ -131,6 +161,7 @@ export default function RecipesData() {
             {...register("price", {
               required: "Price is required",
             })}
+            defaultValue={status?recipeData.price:""}
           />
           {errors.price && (
             <p className="text-danger my-3">{errors.price.message}</p>
@@ -142,7 +173,10 @@ export default function RecipesData() {
             {...register("categoriesIds", {
               required: "Category is required",
             })}
+            value={categoryId}
+            onChange={(e)=>setCategoryId(e.target.value)}
           >
+            <option value="">Category</option>
             {categoriesList.map((category) => (
               <option key={category.id} value={category.id}>
                 {category.name}
@@ -160,6 +194,7 @@ export default function RecipesData() {
             {...register("description", {
               required: "Description  Name is required",
             })}
+            defaultValue={status?recipeData.description:""}
           ></textarea>
 
           {errors.description && (
@@ -202,8 +237,8 @@ export default function RecipesData() {
             <button className="btn btn-outline-success mx-3 py-2 px-4 ">
               Cancel
             </button>
-            <button className="btn btn-success px-3 green-bg  " type="submit">
-              Save
+            <button className="btn btn-success px-3 green-bg  " type="submit">Save
+             {/* {status === "edit" ? 'Update' : ' Save'} */}
             </button>
           </div>
         </form>

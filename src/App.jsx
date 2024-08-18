@@ -17,6 +17,7 @@ import { jwtDecode } from "jwt-decode";
 import ProtectedRoute from "./modules/Shared/components/ProtectedRoute/ProtectedRoute";
 import RecipesData from "./modules/Recipes/components/RecipesData/RecipesData";
 import VerifyAccount from "./modules/Authentication/components/VerifyAccount/VerifyAccount";
+import Favourites from "./modules/Recipes/components/Favourites/Favourites";
 
 function App() {
 
@@ -50,6 +51,8 @@ function App() {
         { path: "categoriesList", element: <CategoriesList /> },
         { path: "recipesList", element: <RecipesList /> },
         { path: "recipes-data", element: <RecipesData /> },
+        { path: "recipes-Edit/:id", element: <RecipesData /> },
+        { path: "favourites", element: <Favourites /> },
       ],
     },
   ]);

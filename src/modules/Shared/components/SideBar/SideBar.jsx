@@ -1,15 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Sidebar, Menu, MenuItem } from "react-pro-sidebar";
-import {
-  Link,
-  Navigate,
-  NavLink,
-  useNavigate,
-} from "react-router-dom";
+import { Link, Navigate, NavLink, useNavigate } from "react-router-dom";
 import toggler from "../../../../assets/images/icon.png";
-
+import { AuthContext } from '../../../../context/AuthContext'
 function SideBar() {
-
+  let { loginData } = useContext(AuthContext);
   const [isCollapse, setIsCollapse] = React.useState(() => {
     const storedValue = localStorage.getItem("isCollapsible");
     if (!storedValue) return false;
@@ -21,15 +16,14 @@ function SideBar() {
   let togglerCollapse = () => {
     setIsCollapse(!isCollapse);
 
-    localStorage.setItem("isCollapse",!isCollapse)
+    localStorage.setItem("isCollapse", !isCollapse);
   };
-
 
   return (
     <>
       <div
         classNameName="bg-sidebar"
-        style={{ position: "sticky", top:"0" , left: "0",height:"100vh"}}
+        style={{ position: "sticky", top: "0", left: "0", height: "100vh" }}
       >
         <Sidebar collapsed={isCollapse} className="h-100">
           <Menu
@@ -39,17 +33,13 @@ function SideBar() {
                 [`&.active`]: {
                   backgroundColor: "#00924D1A",
                   color: "#b6c8d9",
-             
-                  
                 },
               },
-           
             }}
           >
             <MenuItem
               className="text-white firstRow-sideBar py-5  "
               onClick={togglerCollapse}
-            
               icon={
                 <img
                   src={toggler}
@@ -72,14 +62,19 @@ function SideBar() {
               {" "}
               Home
             </MenuItem>
-            <MenuItem
-              className="text-white "
-              icon={<i className="fa-solid  fa-user-group"></i>}
-              component={<NavLink to="/dashboard/users" />}
-            >
-              {" "}
-              Users
-            </MenuItem>
+            {loginData?.userGroup == "SuperAdmin" ? (
+              <MenuItem
+                className="text-white "
+                icon={<i className="fa-solid  fa-user-group"></i>}
+                component={<NavLink to="/dashboard/users" />}
+              >
+                {" "}
+                Users
+              </MenuItem>
+            ) : (
+              ""
+            )}
+
             <MenuItem
               className="text-white "
               icon={<i className="fa-solid fa-table-cells-large"></i>}
@@ -89,14 +84,32 @@ function SideBar() {
               Recipes
             </MenuItem>
 
-            <MenuItem
-              className="text-white "
-              icon={<i className="fa-regular fa-calendar-days"></i>}
-              component={<NavLink to="/dashboard/categoriesList" />}
-            >
-              {" "}
-              Categories
-            </MenuItem>
+            {loginData?.userGroup == "SuperAdmin" ? (
+              <MenuItem
+                className="text-white "
+                icon={<i className="fa-regular fa-calendar-days"></i>}
+                component={<NavLink to="/dashboard/categoriesList" />}
+              >
+                {" "}
+                Categories
+              </MenuItem>
+            ) : (
+              ""
+            )}
+
+            {loginData?.userGroup != "SuperAdmin" ? (
+              <MenuItem
+                className="text-white "
+                icon={<i className="fa-solid fa-heart"></i>}
+                component={<NavLink to="/dashboard/favourites"/>}
+              >
+                {" "}
+                Favourites
+              </MenuItem>
+            ) : (
+              ""
+            )}
+
             <MenuItem
               className="text-white "
               icon={<i className="fa-solid fa-right-from-bracket"></i>}
