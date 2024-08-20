@@ -1,5 +1,5 @@
 import "./App.css";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, createHashRouter, RouterProvider } from "react-router-dom";
 import AuthLayout from "./modules/Shared/components/AuthLayout/AuthLayout";
 import Login from "./modules/Authentication/components/Login/Login";
 import Register from "./modules/Authentication/components/Register/Register";
@@ -23,7 +23,7 @@ import ChangePassword from "./modules/Authentication/components/ChangePassword/C
 function App() {
 
 
-  const routers = createBrowserRouter([
+  const routers = createHashRouter([
     {
       path: "",
       element: <AuthLayout />,
