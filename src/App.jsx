@@ -18,7 +18,7 @@ import ProtectedRoute from "./modules/Shared/components/ProtectedRoute/Protected
 import RecipesData from "./modules/Recipes/components/RecipesData/RecipesData";
 import VerifyAccount from "./modules/Authentication/components/VerifyAccount/VerifyAccount";
 import Favourites from "./modules/Recipes/components/Favourites/Favourites";
-import ChangePassword from "./modules/Authentication/components/ChangePassword/ChangePassword";
+
 
 function App() {
 
