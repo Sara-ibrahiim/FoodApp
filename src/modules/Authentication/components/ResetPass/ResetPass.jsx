@@ -42,7 +42,7 @@ export default function ResetPass() {
   });
   return <>
 
-            <div className="text-start mt-3 mb-4">
+            <div className="text-start my-2 ">
               <h5 className='mb-1 header-text '>Reset Password </h5>
               <p className='text-logo'>Please Enter Your Otp or Check Your Inbox</p>
   
@@ -51,7 +51,7 @@ export default function ResetPass() {
 </div>
             <form onSubmit={handleSubmit(onSubmit)}>
        
-            <div className="input-group pb-1">
+            <div className="input-group ">
   <span className="input-group-text" id="basic-addon1"><i className='fa-regular fa-envelope icon-color'></i></span>
   <input type="email" className="form-control" placeholder="Enter Your Email" aria-label="email" 
   aria-describedby="basic-addon1"
@@ -59,7 +59,7 @@ export default function ResetPass() {
 </div>
 {errors.email && <p className='text-danger'>{errors.email.message}</p>}
 
-<div className="input-group pb-1">
+<div className="input-group  my-3">
   <span className="input-group-text" id="basic-addon1"><i className='fa-solid fa-lock icon-color'></i></span>
   <input type="text" className="form-control" placeholder="OTP"
    aria-label="seed" aria-describedby="basic-addon1"
@@ -74,7 +74,7 @@ export default function ResetPass() {
 </div>
 {errors.seed && <p className='text-danger'>{errors.seed.message}</p>}
 
-<div className="input-group pb-1">
+<div className="input-group  mb-3">
   <span className="input-group-text" id="basic-addon1">
     <i className='fa-solid fa-lock icon-color'></i></span>
   <input type={isPasswordVisible? "text" : "password"} className="form-control" placeholder="Password"
@@ -92,7 +92,7 @@ export default function ResetPass() {
 {errors.password && <p className='text-danger'>{errors.password.message}</p>}
 
 
-<div className="input-group pb-1">
+<div className="input-group ">
   <span className="input-group-text" id="basic-addon1">       
   
       <i className='fa-solid fa-lock icon-color'></i></span>
@@ -118,7 +118,7 @@ export default function ResetPass() {
 </div>
 {errors.confirmPassword && <p className='text-danger'>{errors.confirmPassword.message}</p>}
 
-<button className='btn btn-success d-block w-100 my-2' type="submit"
+<button className='btn btn-success d-block w-100 mb-2 mt-3' type="submit"
    disabled={!isDirty || !isValid || isSubmitting}>Reset Password</button>
 
 
