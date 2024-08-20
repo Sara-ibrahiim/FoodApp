@@ -6,7 +6,7 @@ export default function DeleteConfirmation({deleteItem}) {
          <div className='text-center ms-3  '>
           <img  src={dGirl}/>
           <h5 className='py-2 fw-bold'>Delete This {deleteItem} ?</h5>
-          <span className='delete-title'>are you sure you want to delete this item ?
+          <span className='dark_gray'>are you sure you want to delete this item ?
              <br/> if you are sure just click on delete it</span>
     
           </div>

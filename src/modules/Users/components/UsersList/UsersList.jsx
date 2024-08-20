@@ -12,10 +12,17 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { useNavigate } from 'react-router-dom'
 import { AuthContext } from '../../../../context/AuthContext'
+import LoadingScreen from '../../../Shared/components/LoadingScreen/LoadingScreen'
 
 export default function UsersList() {
   let { loginData } = useContext(AuthContext);
   let navigate = useNavigate()
+  if (loginData?.userGroup != "SuperAdmin") {
+      
+    navigate("/NotFound")
+  }
+ 
+  const[isLoading,setLoading] = useState(false);
   const [Users, setUsers] = useState([])
   const [show, setShow] = useState(false);
   const [userId, setUserId] = useState(0);
@@ -43,6 +50,7 @@ export default function UsersList() {
     }
   }
 let getUsers = async (pageS,pageN,nameInput,groupsInput)=>{
+
   try{
     let response= await axios.get(User_URls.getList,
       {
@@ -52,6 +60,7 @@ let getUsers = async (pageS,pageN,nameInput,groupsInput)=>{
       setArrayOffPages(Array(response.data.totalNumberOfPages).fill().map((_,i)=>i+1))
       setUsers(response.data.data)
       console.log(response.data.data)
+   
   } catch(error){
     
   }
@@ -65,13 +74,13 @@ const getGroupValue = (input) =>{
   getRecipeList(7,1,nameValue,input.target.value,groupValue);
 }
 useEffect(()=>{
-  if (loginData?.userGroup != "SuperAdmin") {
-      
-    navigate("/NotFound")
-  }
+
+  setLoading(true);
 
   getUsers(10,1,"",1)
-
+  setTimeout(() => {
+    setLoading(false);
+  }, 800);
 
 },[])
 
@@ -79,7 +88,14 @@ useEffect(()=>{
 
 
   return (
-    <div>
+    <>
+   {!isLoading ? 
+   
+   <div>
+
+
+
+   {loginData?.userGroup == "SuperAdmin"?     <div>
     <Header imgUrl={RecipesImg} 
 title={"Users"}  
 title2={"List"}
@@ -242,10 +258,10 @@ description={"You can now add your items that any user can order it from the App
       </div>
 
 
-<div className='my-2 mx-4 col-md-11 '>
+<div className='my-3 mx-4 col-md-11 '>
 
 
- <ul className="pagination my-2   " >
+ <ul className="pagination my-2 justify-content-end " >
     <li className="page-item">
       <a className="page-link" href="#" aria-label="Previous">
         <span aria-hidden="true">&laquo;</span>
@@ -269,9 +285,16 @@ description={"You can now add your items that any user can order it from the App
 
 
 
+</div> : ""}
+
+
 </div>
 
+   : <LoadingScreen/>}
 
+
+
+</>
 
 
 

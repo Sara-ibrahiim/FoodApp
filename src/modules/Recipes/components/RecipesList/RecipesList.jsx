@@ -12,6 +12,7 @@ import DeleteConfirmation from "../../../Shared/components/DeleteConfirmation/De
 import deleteGirl from '../../../../assets/images/girl-delete.png'
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from '../../../../context/AuthContext'
+import LoadingScreen from "../../../Shared/components/LoadingScreen/LoadingScreen";
 
 export default function RecipesList() {
   let { loginData } = useContext(AuthContext);
@@ -25,6 +26,7 @@ export default function RecipesList() {
   const [nameValue, setNameValue] = useState("")
   const [tagValue, setTagValue] = useState("")
   const [catValue, setCatValue] = useState("")
+  const[isLoading,setLoading] = useState(false);
   const handleShow = (id) => {
     setRecId(id);
     setShow(true);
@@ -44,6 +46,7 @@ export default function RecipesList() {
     }
   };
   let getRecipeList = async (pageS,pageN,nameInput,tagInput,catInput) => {
+    
     try {
       let response = await axios.get(Recipe_URL.getList, {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
@@ -52,6 +55,7 @@ export default function RecipesList() {
       setArrayOffPages(Array(response.data.totalNumberOfPages).fill().map((_,i)=>i+1))
       setRecipeList(response.data.data);
       console.log(response.data.data);
+  
     } catch (error) {}
   };
 
@@ -104,14 +108,21 @@ export default function RecipesList() {
 
   }
   useEffect(() => {
+    setLoading(true);
     getRecipeList(7,1,'');
     getAllTags();
     getCategoriesList();
+    setTimeout(() => {
+      setLoading(false);
+    }, 800);
   }, []);
 
 
   return (
-    <div>
+    
+    <>
+
+{!isLoading?  <div>
       <Header
         imgUrl={RecipesImg}
         title={"Recipes"}
@@ -282,9 +293,19 @@ export default function RecipesList() {
                     </div>
                   </td>
   :(<td className="pe-4">
+{/*   */}
 
-<i onClick={()=>addToFav(Recipe.id)} class="fa-regular fa-heart text-success mt-1"></i>
-  </td>)}
+ {/* <button  onClick={()=>addToFav(Recipe.id)}    className="border-none bg-transparent ">
+<i  onClick={()=>setIsHeartVisible(prev=>!prev)}
+class={`${IsHeartVisible? "fa-regular": "fa-solid" }
+fa-heart text-success mt-1`}></i> 
+
+  
+</button>  */}
+
+<i onClick={()=>addToFav(Recipe.id)} className=" fa-heart fa-regular pointer text-success mt-1"></i>
+
+              </td>)}
 
                 </tr>
               ))
@@ -314,6 +335,8 @@ export default function RecipesList() {
     </li>
   </ul>
       </div>
-    </div>
+      </div>   : <LoadingScreen/>}
+     
+    </>
   );
 }

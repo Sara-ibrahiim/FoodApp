@@ -34,8 +34,8 @@ export default function VerifyAccount() {
         <p className="text-logo">Welcome Back! Please enter your details </p>
       </div>
       <form onSubmit={handleSubmit(onSubmit)}>
-        {errors.email && <p className="text-danger">{errors.email.message}</p>}
-        <div className="input-group mb-3">
+      
+        <div className="input-group mb-2">
           <span className="input-group-text" id="basic-addon1">
             <i className="fa-regular fa-envelope icon-color"></i>
           </span>
@@ -48,9 +48,10 @@ export default function VerifyAccount() {
             {...register("email", EmailValidation)}
           />
         </div>
+        {errors.email && <p className="text-danger">{errors.email.message}</p>}
 
-        {errors.code && <p className="text-danger">{errors.code.message}</p>}
-        <div className="input-group mb-5 ">
+       
+        <div className="input-group mb-2 mt-3 ">
           <span className="input-group-text" id="basic-addon1">
             <i className="fa-solid fa-lock icon-color"></i>
           </span>
@@ -62,7 +63,7 @@ export default function VerifyAccount() {
             aria-label="code"
             aria-describedby="basic-addon1"
             {...register("code", {
-              required: "Code is required",
+              required: "Code is Required",
               //validate: (value, formValues) => value === '4',  ^[^\s]{4}$
               pattern: {
                 value:/^[^\s]{4}$/,
@@ -72,9 +73,9 @@ export default function VerifyAccount() {
             })}
           />
         </div>
-
+        {errors.code && <p className="text-danger ">{errors.code.message}</p>}
         <button
-          className="btn btn-success d-block w-100 mt-2 mb-5"
+          className="btn btn-success d-block w-100 mt-4 mb-5"
           type="submit"
           disabled={isSubmitting}
         >

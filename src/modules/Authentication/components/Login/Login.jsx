@@ -72,7 +72,7 @@ const [isPasswordVisible, setIsPasswordVisible] = useState(false);
         <p className="text-logo">Welcome Back! Please enter your details </p>
       </div>
       <form onSubmit={handleSubmit(onSubmit)} method="post">
-        {errors.email && <p className="text-danger">{errors.email.message}</p>}
+    
         <div className="input-group ">
           <span className="input-group-text" id="basic-addon1">
             <i className="fa-solid fa-mobile-screen icon-color"></i>
@@ -87,12 +87,10 @@ const [isPasswordVisible, setIsPasswordVisible] = useState(false);
             {...register("email", EmailValidation)}
           />
         </div>
+        {errors.email && <p className="text-danger mt-1">{errors.email.message}</p>}
 
 
-
-        {errors.password && (
-          <p className="text-danger">{errors.password.message}</p>
-        )}
+    
         <div className="input-group mb-1 mt-4">
           <span className="input-group-text" id="basic-addon1">
             <i className="fa-solid fa-lock icon-color "></i>
@@ -135,7 +133,9 @@ const [isPasswordVisible, setIsPasswordVisible] = useState(false);
             ></i>
           </button>
         </div>
-
+        {errors.password && (
+          <p className="text-danger mt-1">{errors.password.message}</p>
+        )}
 
 
 

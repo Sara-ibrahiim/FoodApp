@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
+import { useBeforeunload } from "react-beforeunload";
 import { Link, useNavigate } from "react-router-dom";
 import { DropzoneArea } from "mui-file-dropzone";
 import axios from "axios";
@@ -12,7 +13,10 @@ import { User_URls } from "../../../../constants/End_Points";
 
 
 export default function Register() {
-
+  useBeforeunload((event) => {
+    event.preventDefault();
+    console.log("beforeunload happened!");
+  });
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   let password;
   let navigate = useNavigate();
@@ -21,6 +25,8 @@ export default function Register() {
     register,
     handleSubmit,
     control,
+    getValues,
+    reset,
     watch,
     formState:{errors,isDirty, isValid,isSubmitting}
   } = useForm({ mode: "onChange" }); 
@@ -54,9 +60,11 @@ export default function Register() {
     }
   };
 
+
+
   return (
     <div>
-      <div className="text-start mt-3 pb-3 ">
+      <div className="text-start  pb-2 ">
         <h5 className="mb-1 header-text ">Register</h5>
         <p className="text-logo">Welcome Back! Please enter your details </p>
       </div>
@@ -66,9 +74,7 @@ export default function Register() {
           <div className="col-md-6">
             <div className="mb-2">
               {/* userName */}
-              {errors.userName && (
-                <p className="text-danger">{errors.userName.message}</p>
-              )}
+           
               <div className="input-group ">
                 <span className="input-group-text" id="basic-addon1">
                   <i className="fa-regular fa-user icon-color"></i>
@@ -84,16 +90,19 @@ export default function Register() {
                     required: "UserName is required",
                     pattern: {
                       value: /^[A-Za-z]{4,8}\d+$/i,
-                      message: 'The user Name must Start with a letter,and end with digit Characters'
+                      message: 'User Name must Start with a letter,and end with digit'
                       }
                   })}
                 />
               </div>
-              {/* country */}
-              {errors.country && (
-                <p className="text-danger">{errors.country.message}</p>
+
+              {errors.userName && (
+                <p className="text-danger">{errors.userName.message}</p>
               )}
-              <div className="input-group my-3 ">
+
+              {/* country */}
+          
+              <div className="input-group my-2 ">
                 <span className="input-group-text" id="basic-addon1">
                   <i className="fa-solid fa-earth-africa icon-color"></i>
                 </span>
@@ -107,12 +116,13 @@ export default function Register() {
                   {...register("country", { required: "Country is required" })}
                 />
               </div>
+              {errors.country && (
+                <p className="text-danger">{errors.country.message}</p>
+              )}
 
               {/* password */}
-              {errors.password && (
-                <p className="text-danger">{errors.password.message}</p>
-              )}
-              <div className="input-group pb-3">
+           
+              <div className="input-group pb-3 mb-1">
                 <span className="input-group-text" id="basic-addon1">
                   <i className="fa-solid fa-lock icon-color"></i>
                 </span>
@@ -147,15 +157,16 @@ export default function Register() {
                   ></i>
                 </button>
               </div>
+              {errors.password && (
+                <p className="text-danger">{errors.password.message}</p>
+              )}
             </div>
           </div>
 
           <div className="col-md-6">
             <div className="mb-2">
               {/*email */}
-              {errors.email && (
-                <p className="text-danger">{errors.email.message}</p>
-              )}
+         
 
               <div className="input-group ">
                 <span className="input-group-text" id="basic-addon1">
@@ -171,12 +182,13 @@ export default function Register() {
                   {...register("email", EmailValidation)}
                 />
               </div>
+              {errors.email && (
+                <p className="text-danger msg-email pb-4">{errors.email.message}</p>
+              )}
 
               {/* phoneNumber */}
-              {errors.phoneNumber && (
-                <p className="text-danger ">{errors.phoneNumber.message}</p>
-              )}
-              <div className="input-group my-3">
+          
+              <div className="input-group my-2">
                 <span className="input-group-text" id="basic-addon1">
                   <i className="fa-solid fa-mobile-screen icon-color"></i>
                 </span>
@@ -192,11 +204,12 @@ export default function Register() {
                   })}
                 />
               </div>
-              {/* confirm pass */}
-              {errors.confirmPassword && (
-                <p className="text-danger">{errors.confirmPassword.message}</p>
+              {errors.phoneNumber && (
+                <p className="text-danger ">{errors.phoneNumber.message}</p>
               )}
-              <div className="input-group pb-3">
+              {/* confirm pass */}
+          
+              <div className="input-group pb-3 mb-1">
                 <span className="input-group-text" id="basic-addon1">
                   <i className="fa-solid fa-lock icon-color"></i>
                 </span>
@@ -236,6 +249,10 @@ export default function Register() {
                   ></i>
                 </button>
               </div>
+
+              {errors.confirmPassword && (
+                <p className="text-danger">{errors.confirmPassword.message}</p>
+              )}
             </div>
           </div>
 
@@ -283,7 +300,7 @@ export default function Register() {
         </div>
 
         <button
-          className="btn btn-success d-block w-100 mt-2 mb-4"
+          className="btn btn-success d-block w-100 mt-2 mb-3"
           type="submit"
           disabled={!isDirty || !isValid || isSubmitting}
         >

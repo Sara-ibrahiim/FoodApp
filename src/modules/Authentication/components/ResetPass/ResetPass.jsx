@@ -50,15 +50,16 @@ export default function ResetPass() {
 
 </div>
             <form onSubmit={handleSubmit(onSubmit)}>
-              {errors.email && <p className='text-danger'>{errors.email.message}</p>}
-            <div className="input-group pb-3">
+       
+            <div className="input-group pb-1">
   <span className="input-group-text" id="basic-addon1"><i className='fa-regular fa-envelope icon-color'></i></span>
   <input type="email" className="form-control" placeholder="Enter Your Email" aria-label="email" 
   aria-describedby="basic-addon1"
   {...register('email',EmailValidation)}/>
 </div>
-{errors.seed && <p className='text-danger'>{errors.seed.message}</p>}
-<div className="input-group pb-3">
+{errors.email && <p className='text-danger'>{errors.email.message}</p>}
+
+<div className="input-group pb-1">
   <span className="input-group-text" id="basic-addon1"><i className='fa-solid fa-lock icon-color'></i></span>
   <input type="text" className="form-control" placeholder="OTP"
    aria-label="seed" aria-describedby="basic-addon1"
@@ -71,8 +72,9 @@ export default function ResetPass() {
    
   })} />
 </div>
-{errors.password && <p className='text-danger'>{errors.password.message}</p>}
-<div className="input-group pb-3">
+{errors.seed && <p className='text-danger'>{errors.seed.message}</p>}
+
+<div className="input-group pb-1">
   <span className="input-group-text" id="basic-addon1">
     <i className='fa-solid fa-lock icon-color'></i></span>
   <input type={isPasswordVisible? "text" : "password"} className="form-control" placeholder="Password"
@@ -87,11 +89,10 @@ export default function ResetPass() {
         <span className='sr_only'>{isPasswordVisible? "Hide Password":"Show Password"}</span> 
    <i className={`fa ${isPasswordVisible? "fa-eye-slash":"fa-eye"}`}></i></button>
 </div>
+{errors.password && <p className='text-danger'>{errors.password.message}</p>}
 
 
-
-{errors.confirmPassword && <p className='text-danger'>{errors.confirmPassword.message}</p>}
-<div className="input-group pb-3">
+<div className="input-group pb-1">
   <span className="input-group-text" id="basic-addon1">       
   
       <i className='fa-solid fa-lock icon-color'></i></span>
@@ -115,7 +116,7 @@ export default function ResetPass() {
         </span> 
    <i className={`fa ${isPasswordVisible? "fa-eye-slash":"fa-eye"}`}></i></button>
 </div>
-
+{errors.confirmPassword && <p className='text-danger'>{errors.confirmPassword.message}</p>}
 
 <button className='btn btn-success d-block w-100 my-2' type="submit"
    disabled={!isDirty || !isValid || isSubmitting}>Reset Password</button>

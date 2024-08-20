@@ -23,14 +23,14 @@ export default function Navbar() {
       <div className="collapse navbar-collapse" id="navbarSupportedContent">
      
         <ul className="navbar-nav ms-auto mb-2 mb-lg-0 me-3">
-        <img src={Icon} alt="" className=' me-2'/>
-          <li className="nav-item pt-2"> 
+        <img src={Icon} alt="" className='img-navbar me-2'/>
+          <li className="nav-item pt-2 me-4"> 
          
           {loginData?.userName}
         </li>
 
       
-      <i className=" nav-item fa-solid fa-bell mx-4 pt-3  "></i>
+      <i className=" nav-item fa-solid fa-bell me-4 pt-3  "></i>
        
       
         </ul>

@@ -29,6 +29,9 @@ color: #009247 !important;
   background-color: #349261 !important;
   cursor: pointer !important;
 }
+.pointer{
+  cursor: pointer !important;
+}
 .auth-container{
     background-image:url(./assets/images/image-1.png) ;
     background-size: cover;
@@ -46,7 +49,7 @@ color: #009247 !important;
     color:  rgba(73, 73, 73, 1) !important;
     font-weight: 700 !important;
 }
-.icon-color{
+.icon-color,.fa-eye,.fa-eye-slash{
     color: rgba(131, 145, 161, 1) !important;
 }
 
@@ -85,7 +88,7 @@ background-color:#00924D1A !important;
 
 }
 .firstRow-sideBar{
-    margin-left: 10px !important;
+    margin-left: 8px !important;
    
 }
 .bg-header{
@@ -220,7 +223,10 @@ margin-bottom: 20px !important;
     color:  #D9D9D9 ;
     
   }
-
+  .dark_gray{
+    color:  #a7a4a4 ;
+    
+  }
   /*Recipe*/
   .imgRecipe{
     width: 40%;
@@ -316,7 +322,9 @@ th{
     pointer-events: none;
     color: #1F263E !important;
 }
-
+.header-img img {
+  animation: mover 1s infinite alternate;
+}
 /*model*/
 .modal{
   --bs-modal-header-border-color:'transform';
@@ -362,7 +370,7 @@ width: 30px !important;
 margin: 5px !important;
 }
 .input-group-text{
-  background-color: transparent !important;
+  background-color: #F7F7F7 !important;
 
 }
 .inputForm{
@@ -390,10 +398,39 @@ color: #8391A1 !important ;
 .btn-home{
   padding-bottom: 12px !important;
 }
-select:focus > option:checked,
+.border-none{
+  border: none !important;
+}
+/* select:focus > option:checked,
 select > option:hover,.bg-option:hover{
   background-color: #009247 !important;
   color: white !important;
+} */
+
+/* select{
+  background-color: white !important;
+}
+textarea,.select-gray,
+.form-control{
+  background-color: #F7F7F7;
+} */
+.pic-fav{
+  height: 250px !important;
+
+}
+.input-group-text{
+  background-color: transparent !important;
+}
+.box-fav{
+  width: 95% !important;
+}
+.spinner-load{
+  color: #009247 !important;
+  z-index: 9999;
+}
+
+.nav-search .form-control-feedback{
+  z-index: 0 !important;
 }
 @media screen and (max-width:600px){
 
@@ -401,13 +438,29 @@ select > option:hover,.bg-option:hover{
    margin-top: 5px !important;
    margin-bottom: 5px !important;
   }
+  .msg-email{
+    padding-bottom: 2px !important;
+  }
+  .img-navbar {
+    width: 50px !important;
+
+  }
 }@media screen and (min-width:610px) and (max-width:768px){
   .select-recipes{
     margin-top: 5px !important;
     margin-bottom: 5px !important;
    }
+   .msg-email{
+    padding-bottom: 2px !important;
+  }
+  .img-navbar {
+    width: 50px !important;
 
+  }
 }@media screen and (min-width:769px) and (max-width:992px){
   
+  .img-navbar {
+    width: 70px !important;
 
+  }
 }

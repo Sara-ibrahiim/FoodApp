@@ -13,10 +13,15 @@ import { CATEGORIES_URL } from "../../../../constants/End_Points";
 //import deleteGirl from '../../../../assets/images/girl-delete.png'
 import { AuthContext } from '../../../../context/AuthContext'
 import { useNavigate } from "react-router-dom";
+import LoadingScreen from "../../../Shared/components/LoadingScreen/LoadingScreen";
 export default function CategoriesList() {
+  
   let { loginData } = useContext(AuthContext);
-
- let navigate = useNavigate()
+  let navigate = useNavigate()
+  if (loginData?.userGroup != "SuperAdmin") {
+      
+    navigate("/NotFound")
+   }
   const [categoriesList, setCategoriesList] = useState([]);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false); // model delete
@@ -28,6 +33,7 @@ export default function CategoriesList() {
   const [showUpdate, setShowUpdate] = useState(false);//update  
   const handleCloseUpdate = () => setShowUpdate(false);
   const [nameValue, setNameValue] = useState("")
+  const[isLoading,setLoading] = useState(false);
   let {register,setValue , handleSubmit,formState:{errors} ,
   reset, isSubmitted
  }=useForm ()
@@ -54,6 +60,7 @@ export default function CategoriesList() {
     }
   };
   let getCategoriesList = async (pageS,pageN,nameInput) => {
+   
     try {
       let response = await axios.get(CATEGORIES_URL.getList,{
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
@@ -62,6 +69,7 @@ export default function CategoriesList() {
       setArrayOffPages(Array(response.data.totalNumberOfPages).fill().map((_,i)=>i+1))
       setCategoriesList(response.data.data);
       console.log(response.data.data);
+  
     } catch (error) {
      
     }
@@ -102,15 +110,13 @@ let updateCategory = async (data) => {
 };
 
   useEffect(() => {
-     if (loginData?.userGroup != "SuperAdmin") {
-      
-      navigate("/NotFound")
-     }
-
-
+ 
+    setLoading(true);
     getCategoriesList(7,1,"");
 
-    
+    setTimeout(() => {
+      setLoading(false);
+    }, 800);
  
   }, []);
 
@@ -119,213 +125,221 @@ let updateCategory = async (data) => {
 
 
   return (
-    <div className="category">
-      <Header
-        imgUrl={RecipesImg}
-        title={"Category"}
-        title2={"Item"}
-        description={
-          "You can now add your items that any user can order it from the Application and you can edit"
-        }
-      />
+<>
+{!isLoading ?    <div>
+   {loginData?.userGroup == "SuperAdmin"?    <div className="category">
 
-      <TitelsPages TitleHead={"Category"} button={"Category"}  btnClick={handleAddShow}/>
+<Header
+  imgUrl={RecipesImg}
+  title={"Category"}
+  title2={"Item"}
+  description={
+    "You can now add your items that any user can order it from the Application and you can edit"
+  }
+/>
 
-      <div className=" mx-4">
-      <div className="input-group border-1 mb-2">
-          <span className="input-group-text" id="basic-addon1">
-                <i  className="fa-regular fa-user"></i>
-                </span>
-            <input type="text"
-            className="form-control inputForm"
-            placeholder='Search by name'
-            onChange={getNameValue}
-          />
-        </div>
+<TitelsPages TitleHead={"Category"} button={"Category"}  btnClick={handleAddShow}/>
 
-      </div>
-     
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton></Modal.Header>
-        <Modal.Body className="pt-0 mt-0">
-          <DeleteConfirmation deleteItem={"Category"}></DeleteConfirmation>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="outline-danger" onClick={deleteCategory}>
-            Delete this item
-          </Button>
-        </Modal.Footer>
-      </Modal>
+<div className=" mx-4">
+<div className="input-group border-1 mb-2">
+    <span className="input-group-text" id="basic-addon1">
+          <i  className="fa-regular fa-user"></i>
+          </span>
+      <input type="text"
+      className="form-control inputForm"
+      placeholder='Search by name'
+      onChange={getNameValue}
+    />
+  </div>
 
- {/* Category add model */}
+</div>
+
+<Modal show={show} onHide={handleClose}>
+  <Modal.Header closeButton></Modal.Header>
+  <Modal.Body className="pt-0 mt-0">
+    <DeleteConfirmation deleteItem={"Category"}></DeleteConfirmation>
+  </Modal.Body>
+  <Modal.Footer>
+    <Button variant="outline-danger" onClick={deleteCategory}>
+      Delete this item
+    </Button>
+  </Modal.Footer>
+</Modal>
+
+{/* Category add model */}
 
 
-      <Modal show={showAdd} onHide={handleAddClose}>
-      <div className="d-flex justify-content-between">
-      <Modal.Header ><h5 className="mt-1">Add Category</h5></Modal.Header>
-      <Modal.Header closeButton></Modal.Header>
-      </div>
-     
-      
+<Modal show={showAdd} onHide={handleAddClose}>
+<div className="d-flex justify-content-between">
+<Modal.Header ><h5 className="mt-1">Add Category</h5></Modal.Header>
+<Modal.Header closeButton></Modal.Header>
+</div>
+
+
+
+ <form onSubmit={handleSubmit(addCategory) }className="mt-5 p-t3">
+ <Modal.Body className=" mx-3">
+ <input type="text" className="form-control" placeholder="Category Name"
+aria-label="name" aria-describedby="basic-addon1"
+{...register('name',{
+required:"Category Name is required",
+
+})} />
+{errors.name && <p className='text-danger my-3'>{errors.name.message}</p>}
+
  
-       <form onSubmit={handleSubmit(addCategory) }className="mt-5 p-t3">
-       <Modal.Body className=" mx-3">
-       <input type="text" className="form-control" placeholder="Category Name"
-   aria-label="name" aria-describedby="basic-addon1"
-  {...register('name',{
-    required:"Category Name is required",
+  </Modal.Body>
 
-  })} />
-  {errors.name && <p className='text-danger my-3'>{errors.name.message}</p>}
-     
-       
-        </Modal.Body>
+  <Modal.Footer className="mt-5">
+  <Button className="green-bg" variant="success" type="submit" 
+     disabled={isSubmitted}
+    onClick={addCategory}>
+     Save
+    </Button>
+  </Modal.Footer>
+  </form>
 
-        <Modal.Footer className="mt-5">
-        <Button className="green-bg" variant="success" type="submit" 
-           disabled={isSubmitted}
-          onClick={addCategory}>
-           Save
-          </Button>
-        </Modal.Footer>
-        </form>
-      
-      </Modal>
+</Modal>
 
 
 {/* update Category */}
 
-      <Modal show={showUpdate} onHide={handleCloseUpdate}>
-      <div className="d-flex justify-content-between">
-      <Modal.Header ><h5 className="mt-1">Update Category</h5></Modal.Header>
-      <Modal.Header closeButton></Modal.Header>
-      </div>
-     
-      
+<Modal show={showUpdate} onHide={handleCloseUpdate}>
+<div className="d-flex justify-content-between">
+<Modal.Header ><h5 className="mt-1">Update Category</h5></Modal.Header>
+<Modal.Header closeButton></Modal.Header>
+</div>
+
+
+
+ <form onSubmit={handleSubmit(updateCategory) }className="mt-5 p-t3">
+ <Modal.Body className=" mx-3">
+ <input type="text" className="form-control" placeholder="Category Name"
+aria-label="name" aria-describedby="basic-addon1"
+{...register('name',{
+required:"Category Name is required",
+
+})} />
+{errors.name && <p className='text-danger my-3'>{errors.name.message}</p>}
+
  
-       <form onSubmit={handleSubmit(updateCategory) }className="mt-5 p-t3">
-       <Modal.Body className=" mx-3">
-       <input type="text" className="form-control" placeholder="Category Name"
-   aria-label="name" aria-describedby="basic-addon1"
-  {...register('name',{
-    required:"Category Name is required",
+  </Modal.Body>
 
-  })} />
-  {errors.name && <p className='text-danger my-3'>{errors.name.message}</p>}
-     
-       
-        </Modal.Body>
+  <Modal.Footer className="mt-5">
+  <Button className="green-bg" variant="success" type="submit" 
+     disabled={isSubmitted}
+     //onClick={updateCategory}
+     >
+    Update
+    </Button>
+  </Modal.Footer>
+  </form>
 
-        <Modal.Footer className="mt-5">
-        <Button className="green-bg" variant="success" type="submit" 
-           disabled={isSubmitted}
-           //onClick={updateCategory}
-           >
-          Update
-          </Button>
-        </Modal.Footer>
-        </form>
-      
-      </Modal>
+</Modal>
 
 
 
 
-      <div className="table-container m-4 py-2 ">
-        <table className="table">
-          <thead className=" table-secondary ps-3 ">
-            <tr className=" ">
-              <th className="th-first py-4 ps-5 " scope="col">
-                #
-              </th>
-              <th className="py-4" scope="col">
-                Name
-              </th>
-              <th className="py-4" scope="col">
-                Cration Date
-              </th>
-              <th className="th-last py-4 pe-2" scope="col"></th>
-            </tr>
-          </thead>
-          <tbody className="">
-            {categoriesList.length > 0 ? (
-              categoriesList.map((category) => (
-                <tr key={category.id} >
-                  <td scope="row" className="ps-5 ">{category.id}</td>
-                  <td>{category.name}</td>
-                  <td>{category.creationDate}</td>
-                  <td className="tabledDrop pe-2">
-                    <div className="dropdown">
-                      <button
-                        className="btn  "
-                        type="button"
-                        id="dropdownMenu2"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false"
-                      >
-                        ...
-                      </button>
-                      <ul
-                        className="dropdown-menu"
-                        aria-labelledby="dropdownMenu2"
-                      >
-                        <li>
-                          <button className="dropdown-item" type="button">
-                            <i className="fa-regular fa-eye ps-1 mx-2 icon-table"></i>
-                            View
-                          </button>
-                        </li>
-                        <li>
-                          <button className="dropdown-item" type="button" onClick={()=>updateShow(category)} >
-                            <i  className="fa-regular fa-pen-to-square icon-table ps-1 mx-2"></i>{" "}
-                            Edit
-                          </button>
-                          
-                        </li>
-                        <li>
-                          <button
-                            className="dropdown-item"
-                            type="button"
-                            onClick={() => handleShow(category.id)}
-                          >
-                            <i
-                              className="fa-regular fa-trash-can  ps-1 mx-2 icon-table"
-                              aria-hidden="true"
-                            ></i>{" "}
-                            Delete
-                          </button>
-                        </li>
-                      </ul>
-                    </div>
-                  </td>
-                </tr>
-              ))
-            ) : (
-              <NoData />
-            )}
-          </tbody>
-        </table>
-        <nav aria-label="Page navigation example">
-  <ul className="pagination my-2">
-    <li className="page-item">
-      <a className="page-link" href="#" aria-label="Previous">
-        <span aria-hidden="true">&laquo;</span>
-      </a>
-    </li>
+<div className="table-container m-4 py-2 ">
+  <table className="table">
+    <thead className=" table-secondary ps-3 ">
+      <tr className=" ">
+        <th className="th-first py-4 ps-5 " scope="col">
+          #
+        </th>
+        <th className="py-4" scope="col">
+          Name
+        </th>
+        <th className="py-4" scope="col">
+          Cration Date
+        </th>
+        <th className="th-last py-4 pe-2" scope="col"></th>
+      </tr>
+    </thead>
+    <tbody className="">
+      {categoriesList.length > 0 ? (
+        categoriesList.map((category) => (
+          <tr key={category.id} >
+            <td scope="row" className="ps-5 ">{category.id}</td>
+            <td>{category.name}</td>
+            <td>{category.creationDate}</td>
+            <td className="tabledDrop pe-2">
+              <div className="dropdown">
+                <button
+                  className="btn  "
+                  type="button"
+                  id="dropdownMenu2"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  ...
+                </button>
+                <ul
+                  className="dropdown-menu"
+                  aria-labelledby="dropdownMenu2"
+                >
+                  <li>
+                    <button className="dropdown-item" type="button">
+                      <i className="fa-regular fa-eye ps-1 mx-2 icon-table"></i>
+                      View
+                    </button>
+                  </li>
+                  <li>
+                    <button className="dropdown-item" type="button" onClick={()=>updateShow(category)} >
+                      <i  className="fa-regular fa-pen-to-square icon-table ps-1 mx-2"></i>{" "}
+                      Edit
+                    </button>
+                    
+                  </li>
+                  <li>
+                    <button
+                      className="dropdown-item"
+                      type="button"
+                      onClick={() => handleShow(category.id)}
+                    >
+                      <i
+                        className="fa-regular fa-trash-can  ps-1 mx-2 icon-table"
+                        aria-hidden="true"
+                      ></i>{" "}
+                      Delete
+                    </button>
+                  </li>
+                </ul>
+              </div>
+            </td>
+          </tr>
+        ))
+      ) : (
+        <NoData />
+      )}
+    </tbody>
+  </table>
+  <nav aria-label="Page navigation example">
+<ul className="pagination my-3 justify-content-end">
+<li className="page-item">
+<a className="page-link" href="#" aria-label="Previous">
+  <span aria-hidden="true">&laquo;</span>
+</a>
+</li>
 
-    {arrayOffPages.map((pageN)=>(
-   <li onClick={()=> getCategoriesList(7,pageN)} className="page-item" key={pageN}><a className="page-link" href="#">{pageN}</a></li>
-    ))}
- 
-   
-    <li className="page-item">
-      <a className="page-link" href="#" aria-label="Next">
-        <span aria-hidden="true">&raquo;</span>
-      </a>
-    </li>
-  </ul>
+{arrayOffPages.map((pageN)=>(
+<li onClick={()=> getCategoriesList(7,pageN)} className="page-item" key={pageN}><a className="page-link" href="#">{pageN}</a></li>
+))}
+
+
+<li className="page-item">
+<a className="page-link" href="#" aria-label="Next">
+  <span aria-hidden="true">&raquo;</span>
+</a>
+</li>
+</ul>
 </nav>
-      </div>
-    </div>
+</div>
+
+</div> : ""}
+   
+    </div> : <LoadingScreen/>}
+
+    </>
   );
 }

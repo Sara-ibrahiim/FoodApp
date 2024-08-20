@@ -19,7 +19,7 @@ export default function Header({ title, title2, description, imgUrl }) {
           </div>
 
           <div className="col-md-6 d-flex justify-content-end">
-            <div className="img ">
+            <div className="img header-img  ">
               <img src={imgUrl} alt="" className="w-100" />
             </div>
           </div>
