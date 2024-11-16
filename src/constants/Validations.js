@@ -2,18 +2,18 @@ export const EmailValidation ={
         required:"Email Is Required",
         pattern:{
           value:/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-          message:"Email Should Be Valid Mail"
+          message:"Enter a valid e-mail Address"
     
         },
 }
 const PasswordRegEx= 
-/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$ !%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
+/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
 
 export const PasswordValidation={
     required:"Password Is Required",
     pattern:{
       value:PasswordRegEx,
-      message:"Password Should Be Valid Password "
+      message:"You have entered an invalid password"
 
     },
 

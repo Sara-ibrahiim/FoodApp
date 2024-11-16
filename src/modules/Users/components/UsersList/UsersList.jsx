@@ -71,7 +71,7 @@ const getNameValue = (input) =>{
 }
 const getGroupValue = (input) =>{
   setGroupValue(input.target.value);
-  getRecipeList(7,1,nameValue,input.target.value,groupValue);
+  getUsers(7,1,nameValue,input.target.value,groupValue);
 }
 useEffect(()=>{
 
@@ -129,7 +129,7 @@ description={"You can now add your items that any user can order it from the App
                 <i  className="fa-regular fa-user"></i>
                 </span>
             <input type="text"
-            className="form-control inputForm"
+           className="form-control inputForm"
             placeholder='Search by name'
             onChange={getNameValue}
           />

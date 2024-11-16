@@ -16,6 +16,7 @@ body{
 
 }
 
+
 .register_link:hover{
 color: #009247 !important;
 }
@@ -369,10 +370,7 @@ padding-right: 0% !important;
 width: 30px !important;
 margin: 5px !important;
 }
-.input-group-text{
-  background-color: #F7F7F7 !important;
 
-}
 .inputForm{
   border-left: none !important;
 }

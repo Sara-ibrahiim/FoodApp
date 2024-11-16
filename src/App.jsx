@@ -1,5 +1,5 @@
 import "./App.css";
-import { createBrowserRouter, createHashRouter, RouterProvider } from "react-router-dom";
+import { createHashRouter, RouterProvider } from "react-router-dom";
 import AuthLayout from "./modules/Shared/components/AuthLayout/AuthLayout";
 import Login from "./modules/Authentication/components/Login/Login";
 import Register from "./modules/Authentication/components/Register/Register";
@@ -12,8 +12,6 @@ import RecipesList from "./modules/Recipes/components/RecipesList/RecipesList";
 import UsersList from "./modules/Users/components/UsersList/UsersList";
 import NotFound from "./modules/Shared/components/NotFound/NotFound";
 import { ToastContainer } from "react-toastify";
-import { useEffect, useState } from "react";
-import { jwtDecode } from "jwt-decode";
 import ProtectedRoute from "./modules/Shared/components/ProtectedRoute/ProtectedRoute";
 import RecipesData from "./modules/Recipes/components/RecipesData/RecipesData";
 import VerifyAccount from "./modules/Authentication/components/VerifyAccount/VerifyAccount";

@@ -131,7 +131,11 @@ const [isPasswordVisible, setIsPasswordVisible] = useState(false);
             <i
               className={`fa ${isPasswordVisible ? "fa-eye-slash eyeIcon" : "fa-eye eyeIcon"}`}
             ></i>
+
+
           </button>
+
+          
         </div>
         {errors.password && (
           <p className="text-danger mt-1">{errors.password.message}</p>

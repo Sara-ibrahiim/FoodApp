@@ -1,4 +1,4 @@
- const Base_Url = "https://upskilling-egypt.com:3006/api/v1";
+const Base_Url = "https://upskilling-egypt.com:3006/api/v1";
 export const Base_Img_Url ="https://upskilling-egypt.com:3006/"
 
 

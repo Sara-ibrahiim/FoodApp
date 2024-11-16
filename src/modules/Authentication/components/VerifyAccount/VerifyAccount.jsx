@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { EmailValidation } from "../../../../constants/Validations";
@@ -11,7 +10,6 @@ export default function VerifyAccount() {
 
   let {
     register,
-    formValues,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm({ mode: "onChange" });

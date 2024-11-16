@@ -10,7 +10,7 @@ export default function Home() {
 
      <Header imgUrl={HeaderImg} 
      title={"Welcome"} 
-     title2={"Upskilling !"} 
+     title2={"Food Recipes!"} 
      description={"This is a welcoming screen for the entry of the application , you can now see the options"}
      />
 
