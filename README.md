@@ -1,10 +1,11 @@
 
-Food Management Application
+# Food Management Application
 
 Introduction
+
 food web that offers seamless online , it features user management roles (Admin/User), CRUD operations, Users can enjoy real-time browsing, filtering, searching .
 
-
+---------------------------------------------------------------------------------------
 
 Technologies:
 
