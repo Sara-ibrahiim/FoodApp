@@ -14,7 +14,7 @@ import {
 export default function ResetPass() {
   let password;
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-  password = watch("password", "");
+
   let navigate = useNavigate();
   let {
     register,
@@ -22,7 +22,7 @@ export default function ResetPass() {
     watch,
     formState: { errors, isDirty, isValid, isSubmitting },
   } = useForm({ mode: "onChange" });
-
+  password = watch("password");
   let onSubmit = async (data) => {
     try {
       let response = await axios.post(User_URls.reset, data);
